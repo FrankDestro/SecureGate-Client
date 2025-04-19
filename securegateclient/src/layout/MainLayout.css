@@ -1,0 +1,15 @@
+.content {
+  padding: 20px;
+  flex-grow: 1;
+  background-color: var(--content-bg, #ffffff93);
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.main-content {
+  display: flex;
+  height: calc(100vh - 120px);
+  margin-top: 0px;
+  padding-bottom: 42px;
+  box-sizing: border-box;
+}

@@ -1,0 +1,63 @@
+.register-header-client {
+  background-color: var(--securegate-header-bg-color);
+  color: var(--securegate-color-header-title-text);
+  border-bottom: 2px solid var(--color-border);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #b1bdc8be;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  font-size: 16px;
+}
+
+nav a {
+  font-size: 14px;
+}
+
+.container-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.container-left img {
+  width: 50px;
+  height: 50px;
+}
+
+.register-navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.register-menu-items-container {
+  display: flex;
+}
+
+.register-menu-item {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.register-menu-item p {
+  display: none;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.register-menu-item-active {
+  font-weight: 700;
+}

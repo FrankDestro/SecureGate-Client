@@ -1,0 +1,59 @@
+.search-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px 10px 0px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper.focused {
+  border-color: #1976d2; /* Cor de foco */
+}
+
+.search-label {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.input-wrapper input:focus {
+  padding-left: 32px; /* Espaço para a lupa */
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  font-size: 20px;
+  color: #888;
+}
+
+.input-wrapper.focused .search-label,
+.input-wrapper.focused input:not(:placeholder-shown) ~ .search-label {
+  top: -10px;
+  font-size: 14px;
+  color: #888;
+  left: 10px; /* Ajustando o 'left' do label ao ser focado */
+  padding-bottom: 10px;
+}
