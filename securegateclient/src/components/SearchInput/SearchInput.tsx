@@ -7,26 +7,25 @@ interface SearchInputProps {
   label: string;
   width?: string;
   height?: string;
-  value?: string; // Parâmetro opcional
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Parâmetro opcional
+  value?: string; 
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; 
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
   label,
   width = '300px',
   height = '50px',
-  value = '', // Fallback para valor vazio
-  onChange, // Fallback para undefined
+  value = '', 
+  onChange, 
 }) => {
-  const [query, setQuery] = useState(value); // Usar o valor prop passado, caso não tenha, usa o estado interno
+  const [query, setQuery] = useState(value); 
   const [isFocused, setIsFocused] = useState(false);
 
-  // A função de handleChange irá chamar onChange se ele for passado
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
-      onChange(e); // Chama o onChange do componente pai se ele for passado
+      onChange(e); 
     } else {
-      setQuery(e.target.value); // Caso contrário, usa o estado interno
+      setQuery(e.target.value); 
     }
   };
 
@@ -39,7 +38,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         <input
           id="search"
           type="text"
-          value={value || query} // Usa o value se passar como prop, caso contrário usa o estado interno
+          value={value || query} 
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}

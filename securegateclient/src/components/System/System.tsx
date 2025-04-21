@@ -1,11 +1,61 @@
-import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faPlus,
+  faSave,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { systemDTO } from "../../models/systems";
+import { createEmptySystem, dataFormat } from "../../utils/functions";
 import Button from "../Button/Button";
-import SearchInput from "../SearchInput/SearchInput";
-import "./System.css";
+import Modal from "../ModalDefault/Modal";
 import Pagination from "../Pagination/Pagination";
+import SearchInput from "../SearchInput/SearchInput";
+import SystemForm from "../SystemForm/SystemForm";
+import "./System.css";
 
-function System() {
+type Props = {
+  onSearch: (...args: string[]) => void;
+  systems: systemDTO[];
+};
+
+function System({ onSearch, systems }: Props) {
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [currentSystem, setCurrentSystem] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleEdit = (system: any) => {
+    setCurrentSystem(system);
+    setShowEditModal(true);
+  };
+
+  const handleDelete = (system: any) => {
+    setCurrentSystem(system);
+    setShowDeleteModal(true);
+  };
+
+  const handleAdd = () => {
+    setCurrentSystem(createEmptySystem());
+    setShowAddModal(true);
+  };
+
+  const handleSaveSystem = (updatedSystem: any) => {
+    console.log("Sistema atualizado:", updatedSystem);
+    setShowEditModal(false);
+  };
+
+  const handleCancelEdit = () => {
+    setShowEditModal(false);
+  };
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    onSearch(searchTerm);
+  }
+
   return (
     <div className="system-container-main">
       <div className="system-container-title">
@@ -16,84 +66,140 @@ function System() {
           background="#1976d2"
           hoverColor="#1976d2"
           borderRadius="5px"
+          onClick={handleAdd}
         />
       </div>
-      <SearchInput label="Buscar sistema" width="100%" />
+
+      <form onSubmit={handleSubmit}>
+        <div style={{ paddingTop: "20px" }}>
+          <SearchInput
+            label="Buscar sistema"
+            width="100%"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </form>
       <div className="system-container-table">
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Nome</th>
               <th>Client ID</th>
               <th>Client Secret</th>
               <th>Descrição</th>
               <th>Ativo</th>
               <th>Data Registro</th>
+              <th>Data Última Atualização</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Sistema Financeiro</td>
-              <td>fin-123456</td>
-              <td>9f8e7d6c5b4a</td>
-              <td>Integração com sistema de pagamentos</td>
-              <td>
-                <div className="system-container-status">
-                  <span className="dot-status"></span>
-                  <span>SIM</span>
-                </div>
-              </td>
-              <td>2024-12-01 14:22</td>
-              <td>
-                <div className="system-container-opcoes">
-                  <FontAwesomeIcon icon={faTrash} fontSize={16} color="gray" />
-                  <FontAwesomeIcon icon={faEdit} fontSize={16} color="gray" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Sistema de Estoque</td>
-              <td>estoque-78910</td>
-              <td>a1b2c3d4e5f6</td>
-              <td>Controle de inventário e movimentações</td>
-              <td>
-                <div className="system-container-status">
-                  <span className="dot-status-non-active"></span>
-                  <span>NÃO</span>
-                </div>
-              </td>
-              <td>2023-08-21 09:45</td>
-              <td>
-                <div className="system-container-opcoes">
-                  <FontAwesomeIcon icon={faTrash} fontSize={16} color="gray" />
-                  <FontAwesomeIcon icon={faEdit} fontSize={16} color="gray" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Sistema de Relatórios</td>
-              <td>report-456789</td>
-              <td>z9y8x7w6v5u4</td>
-              <td>Geração de relatórios gerenciais</td>
-              <td>
-                <div className="system-container-status">
-                  <span className="dot-status"></span>
-                  <span>SIM</span>
-                </div>
-              </td>
-              <td>2025-01-10 11:12</td>
-              <td>
-                <div className="system-container-opcoes">
-                  <FontAwesomeIcon icon={faTrash} fontSize={16} color="gray" />
-                  <FontAwesomeIcon icon={faEdit} fontSize={16} color="gray" />
-                </div>
-              </td>
-            </tr>
+            {systems.map((system) => (
+              <tr key={system.id}>
+                <td>{system.id}</td>
+                <td>{system.nome}</td>
+                <td>{system.client_id}</td>
+                <td>{system.client_secret}</td>
+                <td>{system.descricao}</td>
+                <td>
+                  <div className="system-container-status">
+                    <span
+                      className={
+                        system.ativo ? "dot-status" : "dot-status-non-active"
+                      }
+                    ></span>
+                    <span>{system.ativo ? "SIM" : "NÃO"}</span>
+                  </div>
+                </td>
+                <td>{dataFormat(system.criado_em)}</td>
+                <td>{dataFormat(system.atualizado_em)}</td>
+
+                <td>
+                  <div className="system-container-opcoes">
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      fontSize={16}
+                      color="gray"
+                      onClick={() => handleDelete(system)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      fontSize={16}
+                      color="gray"
+                      onClick={() => handleEdit(system)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        <Pagination totalItems={120} itemsPerPageOptions={[10, 20, 50]} />
+        {/* <Pagination totalItems={120} itemsPerPageOptions={[10, 20, 50]} /> */}
       </div>
+
+      <Modal
+        title="Adicionar um Sistema"
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        footer={
+          <Button
+            text="Salvar"
+            icon={faSave}
+            background="#1976d2"
+            hoverColor="#1976d2"
+            borderRadius="5px"
+            onClick={() => setShowAddModal(true)}
+          />
+        }
+      >
+        <SystemForm
+          system={currentSystem!}
+          onCancel={() => setShowAddModal(false)}
+          onSave={handleSaveSystem}
+        />
+      </Modal>
+
+      <Modal
+        title={`Editar Sistema: ${currentSystem?.nome}`}
+        isOpen={showEditModal}
+        onClose={handleCancelEdit}
+        footer={
+          <Button
+            text="Salvar Alterações"
+            icon={faSave}
+            background="#1976d2"
+            hoverColor="#1976d2"
+            borderRadius="5px"
+            onClick={() => handleSaveSystem(currentSystem)}
+          />
+        }
+      >
+        <SystemForm
+          system={currentSystem}
+          onCancel={handleCancelEdit}
+          onSave={handleSaveSystem}
+        />
+      </Modal>
+
+      <Modal
+        title={`Deletar Sistema: ${currentSystem?.nome}`}
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        footer={
+          <Button
+            text="Deletar"
+            icon={faTrash}
+            background="#d32f2f"
+            hoverColor="#d32f2f"
+            borderRadius="5px"
+            onClick={() => setShowDeleteModal(false)}
+          />
+        }
+      >
+        <div>Tem certeza que deseja deletar este sistema?</div>
+      </Modal>
     </div>
   );
 }

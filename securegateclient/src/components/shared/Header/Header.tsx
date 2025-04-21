@@ -1,19 +1,19 @@
 import {
   faHome,
-  faLock,
   faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import IconSystem from "../../../assets/SystemIcon2.png";
 
 function Header() {
   return (
     <header className="register-header-client">
       <nav className="app-container">
         <div className="container-left">
-          <FontAwesomeIcon icon={faLock} fontSize={25}/>
-          {/* <img src={IconSystem} alt="Icon"></img> */}
+          {/* <FontAwesomeIcon icon={faLock} fontSize={25}/> */}
+          <img src={IconSystem} alt="Icon"></img>
           <h1>SecureGate - Sistema de Segurança</h1>
         </div>
         <div className="register-navbar-right">

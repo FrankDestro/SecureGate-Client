@@ -2,18 +2,22 @@ import React, { JSX, useState } from 'react';
 import './Pagination.css'; 
 
 interface PaginationProps {
-  totalItems: number; // Total de itens que queremos paginar
-  itemsPerPageOptions?: number[]; // Opções de itens por página
-  initialPage?: number; // Página inicial (opcional)
+  totalItems: number;
+  itemsPerPageOptions?: number[];
+  initialPage?: number;
+  selectedSize?: number; // novo prop
+  onPageSizeChange?: (newSize: number) => void; // novo prop
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   itemsPerPageOptions = [10, 20, 50],
   initialPage = 1,
+  selectedSize,
+  onPageSizeChange,
 }) => {
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
+  const [itemsPerPage, setItemsPerPage] = useState(selectedSize || itemsPerPageOptions[0]);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -24,8 +28,13 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setItemsPerPage(Number(e.target.value));
-    setCurrentPage(1); // Reseta para a primeira página ao mudar a quantidade de itens por página
+    const newSize = Number(e.target.value);
+    setItemsPerPage(newSize);
+    setCurrentPage(1);
+
+    if (onPageSizeChange) {
+      onPageSizeChange(newSize); // avisa o componente pai da mudança
+    }
   };
 
   const renderPageNumbers = () => {
