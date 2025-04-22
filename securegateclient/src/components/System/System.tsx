@@ -10,7 +10,6 @@ import { systemDTO } from "../../models/systems";
 import { createEmptySystem, dataFormat } from "../../utils/functions";
 import Button from "../Button/Button";
 import Modal from "../ModalDefault/Modal";
-import Pagination from "../Pagination/Pagination";
 import SearchInput from "../SearchInput/SearchInput";
 import SystemForm from "../SystemForm/SystemForm";
 import "./System.css";
@@ -136,7 +135,6 @@ function System({ onSearch, systems }: Props) {
             ))}
           </tbody>
         </table>
-        {/* <Pagination totalItems={120} itemsPerPageOptions={[10, 20, 50]} /> */}
       </div>
 
       <Modal

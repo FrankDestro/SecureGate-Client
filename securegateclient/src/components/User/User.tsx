@@ -1,49 +1,29 @@
 import {
   faEdit,
   faPlus,
-  faTrash,
   faSave,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../Button/Button";
-import Pagination from "../Pagination/Pagination";
-import SearchInput from "../SearchInput/SearchInput";
 import { useState } from "react";
+import { UserDTO } from "../../models/user";
+import { dataFormat } from "../../utils/functions";
+import Button from "../Button/Button";
 import Modal from "../ModalDefault/Modal";
+import SearchInput from "../SearchInput/SearchInput";
 import UserForm from "../UserForm/UserForm";
 import "./User.css";
 
-const users = [
-  {
-    id: "b123a456-78cd-90ef-1234-56789abcdef0",
-    nome: "João Silva",
-    username: "joaosilva",
-    email: "joao@email.com",
-    dataCriacao: "2023-01-15",
-    ativo: true,
-  },
-  {
-    id: "c234b567-89de-01fg-2345-67890bcdefg1",
-    nome: "Maria Oliveira",
-    username: "mariaoliveira",
-    email: "maria@email.com",
-    dataCriacao: "2023-02-20",
-    ativo: true,
-  },
-  {
-    id: "d345c678-90ef-12gh-3456-78901cdefgh2",
-    nome: "Carlos Souza",
-    username: "carlossouza",
-    email: "carlos@email.com",
-    dataCriacao: "2023-03-05",
-    ativo: false,
-  },
-];
+type Props = {
+  onSearch: (...args: string[]) => void;
+  users: UserDTO[];
+};
 
-function User() {
+function User({ onSearch, users }: Props) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleEdit = (user: any) => {
     setCurrentUser(user);
@@ -52,7 +32,6 @@ function User() {
 
   const handleDelete = (user: any) => {
     setCurrentUser(user);
-    // Lógica para deletar o usuário
     console.log(`Deletando usuário ${user.nome}`);
   };
 
@@ -71,13 +50,17 @@ function User() {
 
   const handleSaveUser = (updatedUser: any) => {
     console.log("Usuário atualizado:", updatedUser);
-    setShowEditModal(false); // Fechar o modal após salvar
-    // Aqui você pode adicionar lógica para salvar no backend ou atualizar a lista de usuários
+    setShowEditModal(false);
   };
 
   const handleCancelEdit = () => {
     setShowEditModal(false);
   };
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    onSearch(searchTerm);
+  }
 
   return (
     <div className="user-container-main">
@@ -89,13 +72,19 @@ function User() {
           background="#1976d2"
           hoverColor="#1976d2"
           borderRadius="5px"
-          onClick={handleAdd} // Chama a função para abrir o modal de adicionar usuário
+          onClick={handleAdd}
         />
       </div>
-
-      <div style={{ paddingTop: "20px" }}>
-        <SearchInput label="Buscar usuário" width="100%" />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div style={{ paddingTop: "20px" }}>
+          <SearchInput
+            label="Buscar usuário"
+            width="100%"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </form>
       <div className="user-container-table">
         <table>
           <thead>
@@ -104,8 +93,10 @@ function User() {
               <th>Nome</th>
               <th>Username</th>
               <th>Email</th>
-              <th>Data Criação</th>
+              <th>Data Registro</th>
+              <th>Data Última Atualização</th>
               <th>Ativo</th>
+              <th>Sistemas</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -113,33 +104,42 @@ function User() {
             {users.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
-                <td>{user.nome}</td>
+                <td>{user.name}</td>
                 <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.dataCriacao}</td>
+                <td>{user.username}</td>
+                <td>{dataFormat(user.createdAt)}</td>
+                <td>{dataFormat(user.updatedAt)}</td>
                 <td>
                   <div className="user-container-status">
                     <span
                       className={
-                        user.ativo ? "dot-status" : "dot-status-non-active"
+                        user.active ? "dot-status" : "dot-status-non-active"
                       }
                     ></span>
-                    <span>{user.ativo ? "SIM" : "NÃO"}</span>
+                    <span>{user.active ? "SIM" : "NÃO"}</span>
                   </div>
                 </td>
+
+                <td>
+                  <div className="system-box">
+                    {Object.keys(user.systems).slice(0, 3).join(", ")}
+                    {Object.keys(user.systems).length > 3 && "..."}
+                  </div>
+                </td>
+
                 <td>
                   <div className="user-container-opcoes">
                     <FontAwesomeIcon
                       icon={faTrash}
                       fontSize={16}
                       color="gray"
-                      onClick={() => handleDelete(user)} // Deletar o usuário
+                      onClick={() => handleDelete(user)}
                     />
                     <FontAwesomeIcon
                       icon={faEdit}
                       fontSize={16}
                       color="gray"
-                      onClick={() => handleEdit(user)} // Editar o usuário
+                      onClick={() => handleEdit(user)}
                     />
                   </div>
                 </td>
@@ -148,10 +148,6 @@ function User() {
           </tbody>
         </table>
       </div>
-
-      <Pagination totalItems={120} itemsPerPageOptions={[10, 20, 50]} />
-
-      {/* Modal para adicionar usuário */}
       <Modal
         title="Adicionar Usuário"
         isOpen={showAddModal}
@@ -163,18 +159,17 @@ function User() {
             background="#1976d2"
             hoverColor="#1976d2"
             borderRadius="5px"
-            onClick={() => handleSaveUser(currentUser)} // Chama a função para salvar o novo usuário
+            onClick={() => handleSaveUser(currentUser)}
           />
         }
       >
         <UserForm
-          user={currentUser} // Passando o usuário vazio para o formulário
+          user={currentUser}
           onCancel={() => setShowAddModal(false)}
-          onSave={handleSaveUser} // Passando a função de salvar
+          onSave={handleSaveUser}
         />
       </Modal>
 
-      {/* Modal para editar usuário */}
       <Modal
         title={`Editar Usuário: ${currentUser?.nome}`}
         isOpen={showEditModal}
@@ -186,14 +181,14 @@ function User() {
             background="#1976d2"
             hoverColor="#1976d2"
             borderRadius="5px"
-            onClick={() => handleSaveUser(currentUser)} // Passando a função para salvar
+            onClick={() => handleSaveUser(currentUser)}
           />
         }
       >
         <UserForm
-          user={currentUser} // Passando as informações do usuário atual
+          user={currentUser}
           onCancel={handleCancelEdit}
-          onSave={handleSaveUser} // Passando a função de salvar
+          onSave={handleSaveUser}
         />
       </Modal>
     </div>

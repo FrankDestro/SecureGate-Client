@@ -15,13 +15,13 @@ type QueryParams = {
 function Sistema() {
   const [systems, setSystems] = useState<systemDTO[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0); // aqui é total de itens, não páginas
   const [queryParams, setQueryParams] = useState<QueryParams>({
     page: 0,
     size: 10,
   });
 
-  const pageSizeOptions = [1, 2, 50];
+  const pageSizeOptions = [5, 10, 20];
 
   function handleSearch(searchText: string) {
     setSystems([]);
@@ -40,22 +40,28 @@ function Sistema() {
       page: 0,
     });
   }
+  const handlePageChange = (newPage: number) => {
+    setQueryParams({ ...queryParams, page: newPage });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     setIsLoading(true);
-  
+
     const timer = setTimeout(() => {
       systemService
         .getAllSystems(queryParams.page, queryParams.size)
         .then((response) => {
-          const { totalPages, content } = response.data;
-          setTotalPages(totalPages);
+          const { totalElements, content } = response.data;
+          setTotalItems(totalElements);
           setSystems(content);
         })
         .finally(() => setIsLoading(false));
-    }, 1000); // simula 1 segundo de delay
-  
-    // boa prática: limpa o timeout se o componente for desmontado
+    }, 0);
+
     return () => clearTimeout(timer);
   }, [queryParams]);
 
@@ -75,10 +81,12 @@ function Sistema() {
         <>
           <System onSearch={handleSearch} systems={systems} />
           <Pagination
-            totalItems={totalPages}
+            totalItems={totalItems}
             itemsPerPageOptions={pageSizeOptions}
             selectedSize={queryParams.size}
+            initialPage={queryParams.page + 1}
             onPageSizeChange={handlePageSizeChange}
+            onPageChange={handlePageChange}
           />
         </>
       )}

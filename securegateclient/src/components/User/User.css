@@ -42,3 +42,12 @@
   display: inline-block;
   background-color: rgba(255, 73, 41, 0.822);
 }
+
+.system-box {
+  background-color: #e6f0ff; /* azul claro */
+  color: #003366; /* azul escuro pro texto */
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 0.9rem;
+}
