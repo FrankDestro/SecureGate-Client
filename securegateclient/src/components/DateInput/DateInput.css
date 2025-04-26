@@ -1,0 +1,26 @@
+.date-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px; /* Espaço entre o label e o input */
+  margin-right: 30px;
+}
+
+input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease; /* Transição suave na borda */
+}
+
+input[type="date"]:focus {
+  border-color: #007bff; /* Cor da borda ao focar */
+}
+
+input[type="date"]:disabled {
+  background-color: #f0f0f0; /* Cor de fundo para inputs desabilitados */
+  border-color: #ccc; /* Mantém a borda clara quando desabilitado */
+}

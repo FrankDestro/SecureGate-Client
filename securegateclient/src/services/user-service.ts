@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { requestBackend } from "../utils/api-service";
+import { requestBackend } from "../utils/api/api-service";
 
 export function getAllUsers(
     page: number,

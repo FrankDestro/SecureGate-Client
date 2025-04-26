@@ -1,28 +1,31 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Login from "./features/Login/Login";
 import MainLayout from "./layout/MainLayout";
-import Associacao from "./pages/Associacao/Associacao";
-import Configuracao from "./pages/Configuracao/Configuracao";
-import Home from "./pages/Home/Home";
-import Sistema from "./pages/Sistemas/Sistema";
+import AssociacaoPage from "./pages/AssociacaoPage/AssociacaoPage";
+import Auth from "./pages/Auth/AuthPage";
+import ConfiguracaoPage from "./pages/ConfiguracaoPage/ConfiguracaoPage";
+import Home from "./pages/HomePage/HomePage";
+import SistemaPage from "./pages/SistemasPage/SistemaPage";
 import UserPage from "./pages/UserPage/UserPage";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<Auth />}>
-            <Route index element={<Login />} />
-            <Route path="recovery" element={<Recovery />} />
-          </Route> */}
-        <Route element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/association" element={<Associacao />} />
-          <Route path="/sistemas" element={<Sistema />} />
-          <Route path="/configuracao" element={<Configuracao />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Navigate to="/auth" replace />} />
+      <Route path="/auth" element={<Auth />}>
+        <Route index element={<Login />} />
+      </Route>
+      
+      <Route element={<MainLayout />}>
+        <Route path="home" element={<Home />} />
+        <Route path="user" element={<UserPage />} />
+        <Route path="association" element={<AssociacaoPage />} />
+        <Route path="sistemas" element={<SistemaPage />} />
+        <Route path="configuracao" element={<ConfiguracaoPage />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
   );
 }
 

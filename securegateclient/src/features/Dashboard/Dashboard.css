@@ -1,0 +1,57 @@
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.dashboard-container-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--register-color-card-border);
+  padding-bottom: 20px;
+}
+
+.chart-container-left,
+.chart-container-right {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0; /* Borda sutil ao redor do card */
+}
+
+@media (min-width: 769px) {
+  .chart-container-left,
+  .chart-container-right {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-container-left,
+  .chart-container-right {
+    width: 100%;
+  }
+}
+
+.date-inputs-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}

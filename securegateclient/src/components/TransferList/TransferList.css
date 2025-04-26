@@ -36,13 +36,13 @@
     cursor: pointer;
     border: none;
     border-radius: 4px;
-    background-color: #1976d2;
+    background-color: #006d77;
     color: white;
     transition: background-color 0.3s ease;
   }
   
   .transfer-buttons button:hover:enabled {
-    background-color: #155fa0;
+    background-color:#004f59;
   }
   
   .transfer-buttons button:disabled {

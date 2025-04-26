@@ -1,0 +1,93 @@
+securegateclient
+│   src
+│   ├── assets
+│   │   ├── react.svg
+│   │   ├── systemIcon.png
+│   │   ├── systemIcon2.png
+│   │   └── SystemIcon2.png
+│   ├── components
+│   │   ├── Button
+│   │   │   ├── Button.css
+│   │   │   └── Button.tsx
+│   │   ├── DialogInfo
+│   │   │   ├── DialogInfo.css
+│   │   │   └── DialogInfo.tsx
+│   │   ├── ModalDefault
+│   │   │   ├── Modal.css
+│   │   │   └── Modal.tsx
+│   │   ├── NoData
+│   │   │   └── NoData.tsx
+│   │   ├── Pagination
+│   │   │   ├── Pagination.css
+│   │   │   └── Pagination.tsx
+│   │   ├── SearchInput
+│   │   │   ├── SearchInput.css
+│   │   │   └── SearchInput.tsx
+│   │   ├── shared
+│   │   │   ├── Footer
+│   │   │   │   ├── Footer.css
+│   │   │   │   └── Footer.tsx
+│   │   │   ├── Header
+│   │   │   │   ├── Header.css
+│   │   │   │   └── Header.tsx
+│   │   │   └── SideBar
+│   │   │       ├── SiderBar.css
+│   │   │       └── SiderBar.tsx
+│   │   └── TransferList
+│   │       ├── TransferList.css
+│   │       └── TransferList.tsx
+│   ├── layout
+│   │   ├── MainLayout.css
+│   │   └── MainLayout.tsx
+│   ├── models
+│   │   ├── system
+│   │   │   ├── systemAssociateByUser.ts
+│   │   │   └── systems.ts
+│   │   └── user
+│   │       └── user.ts
+│   ├── modules
+│   │   ├── Association
+│   │   │   ├── Association.css
+│   │   │   └── Association.tsx
+│   │   ├── System
+│   │   │   ├── System.css
+│   │   │   └── System.tsx
+│   │   ├── SystemForm
+│   │   │   ├── SystemForm.css
+│   │   │   └── SystemForm.tsx
+│   │   ├── User
+│   │   │   ├── User.css
+│   │   │   └── User.tsx
+│   │   └── UserForm
+│   │       ├── UserForm.css
+│   │       └── UserForm.tsx
+│   ├── NavbarLocation
+│   │   ├── NavbarLocation.css
+│   │   └── NavbarLocation.tsx
+│   ├── pages
+│   │   ├── AssociacaoPage
+│   │   │   └── AssociacaoPage.tsx
+│   │   ├── ConfiguracaoPage
+│   │   │   └── ConfiguracaoPage.tsx
+│   │   ├── HomePage
+│   │   │   ├── HomePage.css
+│   │   │   └── HomePage.tsx
+│   │   ├── SistemasPage
+│   │   │   └── SistemaPage.tsx
+│   │   └── UserPage
+│   │       └── UserPage.tsx
+│   ├── services
+│   │   ├── system-service.ts
+│   │   └── user-service.ts
+│   ├── utils
+│   │   ├── api
+│   │   │   └── api-service.ts
+│   │   ├── helpers
+│   │   │   └── functions.ts
+│   │   └── system
+│   │       └── system.ts
+│   ├── App.tsx
+│   ├── AppRoutes.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts

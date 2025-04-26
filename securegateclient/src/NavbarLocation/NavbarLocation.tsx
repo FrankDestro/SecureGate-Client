@@ -2,12 +2,12 @@ import {
   faCogs,
   faHome,
   faSlidersH,
-  faUsers
+  faUsers,
+  faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "react-router-dom";
 
-import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
 import "./NavbarLocation.css";
 
 const NavbarLocation = () => {
@@ -15,12 +15,16 @@ const NavbarLocation = () => {
 
   const getTitle = () => {
     switch (location.pathname) {
-      case "/":
-        return { title: "Home | Panel", icon: faHome };
+      case "/home":
+        return { title: "Home | Painel", icon: faHome };
       case "/user":
         return { title: "Usuários", icon: faUsers };
+      case "/user/details":
+        return { title: "Detalhes do Usuário", icon: faUsers };
       case "/association":
         return { title: "Associação", icon: faLayerGroup };
+      case "/association/details":
+        return { title: "Detalhes da Associação", icon: faLayerGroup };
       case "/configuracao":
         return { title: "Configurações", icon: faSlidersH };
       case "/sistemas":
@@ -35,7 +39,13 @@ const NavbarLocation = () => {
   return (
     <div className="container-navbar-location">
       <div className="container-content-navbar-location">
-        {icon && <FontAwesomeIcon icon={icon} className="navbar-icon" />}
+        {icon && (
+          <FontAwesomeIcon
+            icon={icon}
+            className="navbar-icon"
+            aria-label={title}
+          />
+        )}
         <h3>{title}</h3>
       </div>
     </div>

@@ -1,0 +1,96 @@
+/* Dialog Styles */
+
+.support-service-dialog-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo mais suave */
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out; /* Efeito suave ao aparecer */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.support-service-dialog-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    position: fixed;
+    z-index: 1010;
+    gap: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;  /* Limitar a largura para telas grandes */
+    width: 100%;
+    text-align: left;
+    border: 1px solid gray;
+}
+
+/* Header with Icon and Title */
+.dialog-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-header h2 {
+    font-size: 24px;  /* Título maior */
+    font-weight: bold;
+    color: #333333;
+    margin: 0;
+}
+
+.dialog-description {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Button Styling */
+.support-service-dialog-btn {
+    width: 100%;
+}
+
+.support-service-dialog-btn button {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Efeito suave no hover */
+}
+
+/* Cor do botão azul suave */
+.support-service-dialog-btn button {
+    background-color: #90CAF9; /* Azul suave */
+}
+
+/* Hover do botão */
+.support-service-dialog-btn button:hover {
+    background-color: #64B5F6; /* Azul um pouco mais forte para hover */
+    transform: translateY(-2px); /* Efeito de elevação */
+}
+
+/* Foco do botão */
+.support-service-dialog-btn button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(72, 172, 242, 0.5); /* Efeito de foco */
+}

@@ -1,0 +1,92 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f9;
+  background-image: url('/home/franklyndamaceno/vscodeProjects/SecureGate Client/securegateclient/src/assets/back.avif'); /* Adicione o caminho da sua imagem aqui */
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
+
+.login-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #ddd;
+  padding: 50px 20px 50px 20px;
+}
+
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px; 
+  background: linear-gradient(
+    45deg,
+    #1f2937,
+    #0d47a1
+  );
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.login-card h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-card button:hover {
+  background-color: #0056b3;
+}
+
+.recovery-link {
+  margin-top: 15px;
+}
+
+.recovery-link a {
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.recovery-link a:hover {
+  text-decoration: underline;
+}
+

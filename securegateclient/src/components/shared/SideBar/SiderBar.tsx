@@ -4,6 +4,7 @@ import {
   faUsers,
   faLayerGroup,
   faSlidersH,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import "./SiderBar.css";
 import { NavLink } from "react-router-dom";
@@ -13,6 +14,10 @@ function Sidebar() {
     <div className="sidebar">
       <h2 className="sidebar-title">Painel</h2>
       <nav className="sidebar-menu">
+      <NavLink to="/home" className="sidebar-item">
+          <FontAwesomeIcon icon={faHome} className="sidebar-icon" />
+          <span>Home</span>
+        </NavLink>
         <NavLink to="/sistemas" className="sidebar-item">
           <FontAwesomeIcon icon={faCogs} className="sidebar-icon" />
           <span>Sistemas</span>

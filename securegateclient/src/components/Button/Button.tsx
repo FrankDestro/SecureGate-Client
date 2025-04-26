@@ -1,7 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Oval } from "react-loader-spinner";
+import { Bars, Oval, ThreeDots } from "react-loader-spinner";
 import "./Button.css";
 
 type Props = {
@@ -13,10 +13,13 @@ type Props = {
   borderRadius?: string;
   height?: string;
   width?: string;
-  type?: "submit" | "reset" | "button" | undefined;
+  fullWidth?: boolean;
+  type?: "submit" | "reset" | "button";
   isLoading?: boolean;
   onClick?: () => void;
   disabled?: boolean;
+  loadingText?: string;
+  typeSppiner?: string;
 };
 
 function Button({
@@ -28,12 +31,52 @@ function Button({
   borderRadius = "12px",
   height = "auto",
   width = "auto",
+  fullWidth = false,
   type = "button",
-  isLoading = false, 
-  onClick, 
+  isLoading = false,
+  onClick,
   disabled = false,
+  loadingText = "Buscando...",
+  typeSppiner = "Oval",
 }: Props) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const renderSpinner = () => {
+    switch (typeSppiner) {
+      case "bars":
+        return (
+          <Bars
+            height="30"
+            width="30"
+            color="white"
+            ariaLabel="bars-loading"
+            visible={true}
+          />
+        );
+      case "oval":
+        return (
+          <Oval
+            height="30"
+            width="30"
+            color="white"
+            secondaryColor="white"
+            ariaLabel="oval-loading"
+            visible={true}
+          />
+        );
+      case "three-dots":
+      default:
+        return (
+          <ThreeDots
+            height="30"
+            width="30"
+            color="white"
+            ariaLabel="three-dots-loading"
+            visible={true}
+          />
+        );
+    }
+  };
 
   return (
     <div>
@@ -44,7 +87,7 @@ function Button({
           background: isHovered && hoverColor ? hoverColor : background,
           borderRadius,
           height,
-          width,
+          width: fullWidth ? "100%" : width,
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -53,17 +96,8 @@ function Button({
       >
         {isLoading ? (
           <div className="container-spiner-button-login">
-            <Oval
-              visible={true}
-              height="30"
-              width="30"
-              color="white"
-              secondaryColor="white"
-              ariaLabel="oval-loading"
-              wrapperStyle={{}}
-              wrapperClass="oval-spinner"
-            />
-            <span>Buscando...</span>
+            {renderSpinner()}
+            <span>{loadingText}</span>
           </div>
         ) : (
           <>

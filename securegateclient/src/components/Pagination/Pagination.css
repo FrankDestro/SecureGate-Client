@@ -28,9 +28,9 @@
 }
 
 .page-number.active {
-  background-color: #1976d2;
+  background-color: #006d77;
   color: white;
-  border-color: #1976d2;
+  border-color: #006d77;
 }
 
 .page-number:hover {
@@ -45,7 +45,7 @@ button:disabled {
 }
 
 button {
-  background-color: #1976d2;
+  background-color: #006d77;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -56,7 +56,8 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background-color: #1565c0;
+  background-color: #004f59;
+  color: white;
 }
 
 button:disabled:hover {
@@ -90,7 +91,7 @@ button:disabled:hover {
 }
 
 .items-per-page select:focus {
-  border-color: #1976d2;
+  border-color: #004f59;
   background-color: #f0f8ff;
   outline: none;
 }
