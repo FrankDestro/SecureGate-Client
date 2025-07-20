@@ -135,18 +135,24 @@ function User({ onSearch, users }: Props) {
 
                 <td>
                   <div className="user-container-opcoes">
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      fontSize={16}
-                      color="gray"
-                      onClick={() => handleDelete(user)}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEdit}
-                      fontSize={16}
-                      color="gray"
-                      onClick={() => handleEdit(user)}
-                    />
+                    <div className="container-delete-icon">
+                      <div onClick={() => handleDelete(user)}>
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          fontSize={16}
+                          className="delete-icon"
+                        />
+                      </div>
+                    </div>
+                    <div className="container-edit-icon">
+                      <div  onClick={() => handleEdit(user)}>
+                      <FontAwesomeIcon
+                        icon={faEdit}
+                        fontSize={16}
+                        className="edit-icon"
+                      />
+                      </div>
+                    </div>
                   </div>
                 </td>
               </tr>

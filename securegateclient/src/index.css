@@ -86,7 +86,7 @@ th {
 
 table th,
 td {
-  padding: 8px;
+  padding: 5px;
   text-align: center;
   border-bottom: 1px solid #ddd;
   color: var(--color-text-secondary);
@@ -100,18 +100,21 @@ table td {
   font-size: 14px;
 }
 
-table tr:hover {
-  background-color: #c4c7ca4b;
+table tbody tr:hover {
+  border: 1px solid rgba(0, 174, 255, 0.4);
+  background-color: rgba(80, 159, 196, 0.171);
   cursor: pointer;
-}
-
-td {
-  text-align: center;
+  border-radius: 8px;
 }
 
 th {
   background-color: #f2f2f28f;
   text-align: center;
+}
+
+table td:last-child {
+ width: 90px;
+ height: 46px;
 }
 
 

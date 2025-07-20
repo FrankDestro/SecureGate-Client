@@ -22,6 +22,7 @@ const NoData: React.FC<NoDataProps> = ({ icon, message }) => {
       <FontAwesomeIcon
         icon={icon}
         style={{ marginRight: "20px", fontSize: "2rem" }}
+        color="gray"
       />
       <span>{message}</span>
     </div>

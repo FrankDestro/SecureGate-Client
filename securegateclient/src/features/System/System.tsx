@@ -127,18 +127,26 @@ function System({ onSearch, systems }: Props) {
 
                 <td>
                   <div className="system-container-opcoes">
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      fontSize={16}
-                      color="gray"
-                      onClick={() => handleDelete(system)}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEdit}
-                      fontSize={16}
-                      color="gray"
-                      onClick={() => handleEdit(system)}
-                    />
+                
+                    <div className="container-delete-icon">
+                      <div onClick={() => handleDelete(system)}>
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          fontSize={16}
+                          className="delete-icon"
+                        />
+                      </div>
+                    </div>
+                    <div className="container-edit-icon">
+                      <div  onClick={() => handleEdit(system)}>
+                      <FontAwesomeIcon
+                        icon={faEdit}
+                        fontSize={16}
+                        className="edit-icon"
+                      />
+                    
+                    </div>
+                  </div>
                   </div>
                 </td>
               </tr>
