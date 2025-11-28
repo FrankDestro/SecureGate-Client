@@ -1,11 +1,11 @@
-import { Outlet } from "react-router-dom";
-import User from "../../features/User/User";
-import { useEffect, useState } from "react";
-import * as userService from "../../services/user-service";
-import NoData from "../../components/NoData/NoData";
 import { faDatabase } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import NoData from "../../components/NoData/NoData";
 import Pagination from "../../components/Pagination/Pagination";
-import { UserDTO } from "../../models/user/user";
+import User from "../../features/User/User";
+import { UserDTOListing } from "../../models/user/user";
+import * as userService from "../../services/user-service";
 
 type QueryParams = {
   page: number;
@@ -13,7 +13,7 @@ type QueryParams = {
 };
 
 function UserPage() {
-  const [users, setUsers] = useState<UserDTO[]>([]);
+  const [users, setUsers] = useState<UserDTOListing[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({

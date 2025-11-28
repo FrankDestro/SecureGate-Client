@@ -1,11 +1,15 @@
-import { systemAssociateByUserDTO } from "./system/systemAssociateByUser";
 
-export type UserDTO = {
-  id: string;
+export type UserDTOListing = {
+  id: number;
   name: string;
-  username: string;
-  active: boolean;
-  systems: systemAssociateByUserDTO[];
+  email: string;
   createdAt: string;
   updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  enabled: boolean;
+  accountNonLocked: boolean;
+  accountNonExpired: boolean;
+  credentialsNonExpired: boolean;
+  mfaEnabled: boolean;
 };

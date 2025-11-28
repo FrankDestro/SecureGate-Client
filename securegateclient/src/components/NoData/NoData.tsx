@@ -1,14 +1,13 @@
-// NoData.js
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { Empty } from "antd";
+import React from "react";
 
 interface NoDataProps {
-  icon: IconDefinition;
-  message: string;
+  icon?: IconDefinition; 
+  message?: string;
 }
 
-const NoData: React.FC<NoDataProps> = ({ icon, message }) => {
+const NoData: React.FC<NoDataProps> = ({ message = "Nenhum dado disponível" }) => {
   return (
     <div
       style={{
@@ -19,12 +18,7 @@ const NoData: React.FC<NoDataProps> = ({ icon, message }) => {
         textAlign: "center",
       }}
     >
-      <FontAwesomeIcon
-        icon={icon}
-        style={{ marginRight: "20px", fontSize: "2rem" }}
-        color="gray"
-      />
-      <span>{message}</span>
+      <Empty description={message} />
     </div>
   );
 };

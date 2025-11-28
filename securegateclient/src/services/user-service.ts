@@ -7,7 +7,7 @@ export function getAllUsers(
   ) {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: "/user/getAll",
+      url: "/users/getAllUsers",
       params: {
         page,
         size,

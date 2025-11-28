@@ -15,11 +15,12 @@ import {
 } from "../../utils/helpers/functions";
 import UserForm from "../UserForm/UserForm";
 import "./User.css";
-import { UserDTO } from "../../models/user/user";
+import { UserDTOListing } from "../../models/user/user";
+import Switch from "../../components/Switch/Switch";
 
 type Props = {
   onSearch: (...args: string[]) => void;
-  users: UserDTO[];
+  users: UserDTOListing[];
 };
 
 function User({ onSearch, users }: Props) {
@@ -96,10 +97,13 @@ function User({ onSearch, users }: Props) {
               <th>Nome</th>
               <th>Username</th>
               <th>Email</th>
+              <th>Cadastro por</th>
               <th>Data Registro</th>
+              <th>Atualizado por</th>
               <th>Data Última Atualização</th>
               <th>Ativo</th>
-              <th>Sistemas</th>
+              <th>Bloqueado</th>
+              <th>MFA</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -108,31 +112,39 @@ function User({ onSearch, users }: Props) {
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.email}</td>
+                <td>{user.createdBy}</td>
                 <td>{dataFormat(user.createdAt)}</td>
+                <td>{user.updatedBy}</td>
                 <td>{dataFormat(user.updatedAt)}</td>
                 <td>
                   <div className="user-container-status">
                     <span
                       className={
-                        user.active ? "dot-status" : "dot-status-non-active"
+                        user.enabled ? "dot-status" : "dot-status-non-active"
                       }
                     ></span>
-                    <span>{user.active ? "SIM" : "NÃO"}</span>
                   </div>
                 </td>
-
                 <td>
-                  <div
-                    className="system-box"
-                    title={formatSystemsTooltip(user.systems)}
-                  >
-                    {Object.keys(user.systems).slice(0, 3).join(", ")}
-                    {Object.keys(user.systems).length > 3 && "..."}
+                  <div className="user-container-status">
+                    {user.accountNonLocked ? (
+                      "Não bloqueado"
+                    ) : (
+                      "Bloqueado"
+                    )}
                   </div>
                 </td>
-
+                 <td>
+                  <div className="user-container-status">
+                    {!user.mfaEnabled ? (
+                      "Não ativo"
+                    ) : (
+                      "Ativo"
+                    )}
+                  </div>
+                </td>
                 <td>
                   <div className="user-container-opcoes">
                     <div className="container-delete-icon">
@@ -145,12 +157,12 @@ function User({ onSearch, users }: Props) {
                       </div>
                     </div>
                     <div className="container-edit-icon">
-                      <div  onClick={() => handleEdit(user)}>
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        fontSize={16}
-                        className="edit-icon"
-                      />
+                      <div onClick={() => handleEdit(user)}>
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          fontSize={16}
+                          className="edit-icon"
+                        />
                       </div>
                     </div>
                   </div>
