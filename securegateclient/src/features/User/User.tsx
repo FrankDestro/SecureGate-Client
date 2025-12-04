@@ -9,14 +9,12 @@ import { useState } from "react";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/ModalDefault/Modal";
 import SearchInput from "../../components/SearchInput/SearchInput";
+import { UserDTOListing } from "../../models/user/user";
 import {
-  dataFormat,
-  formatSystemsTooltip,
+  dataFormat
 } from "../../utils/helpers/functions";
 import UserForm from "../UserForm/UserForm";
 import "./User.css";
-import { UserDTOListing } from "../../models/user/user";
-import Switch from "../../components/Switch/Switch";
 
 type Props = {
   onSearch: (...args: string[]) => void;
@@ -68,7 +66,7 @@ function User({ onSearch, users }: Props) {
 
   return (
     <div className="user-container-main">
-      <div className="user-container-title">
+      <div className="title-modules-system">
         <h1>Usuários</h1>
         <Button
           text="Adicionar Usuário"

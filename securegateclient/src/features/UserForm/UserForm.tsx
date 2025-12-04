@@ -98,7 +98,7 @@ function UserForm({ user, onCancel, onSave }: UserFormProps) {
         />
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -109,7 +109,7 @@ function UserForm({ user, onCancel, onSave }: UserFormProps) {
           placeholder="Digite o username"
           required
         />
-      </div>
+      </div> */}
 
       <div className="form-group">
         <label htmlFor="email">Email</label>
@@ -124,7 +124,7 @@ function UserForm({ user, onCancel, onSave }: UserFormProps) {
         />
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label htmlFor="ativo">Ativo</label>
         <select
           id="ativo"
@@ -135,14 +135,14 @@ function UserForm({ user, onCancel, onSave }: UserFormProps) {
           <option value="true">Sim</option>
           <option value="false">Não</option>
         </select>
-      </div>
+      </div> */}
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label className="teste">Sistemas</label>
         <div className="container-content-render-tree-systems">
           {renderSystemsTree(formData.systems)}
         </div>
-      </div>
+      </div> */}
     </form>
   );
 }

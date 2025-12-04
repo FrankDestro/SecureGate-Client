@@ -6,11 +6,14 @@ import Pagination from "../../components/Pagination/Pagination";
 import User from "../../features/User/User";
 import { UserDTOListing } from "../../models/user/user";
 import * as userService from "../../services/user-service";
+import LoadingOverlay from "../../components/shared/LoadingOverlay/LoadingOverlay";
 
 type QueryParams = {
   page: number;
   size: number;
 };
+
+const DEV_DELAY = 9000;
 
 function UserPage() {
   const [users, setUsers] = useState<UserDTOListing[]>([]);
@@ -60,17 +63,14 @@ function UserPage() {
           setTotalItems(totalElements);
         })
         .finally(() => setIsLoading(false));
-    }, 0);
+    });
     return () => clearTimeout(timer);
   }, [queryParams]);
 
   return (
     <div className="app-container-content ">
       {isLoading ? (
-        <div className="spinner-container">
-          <div className="spinner-border" role="status"></div>
-          <span>Carregando....</span>
-        </div>
+        <LoadingOverlay />
       ) : users.length === 0 ? (
         <>
           <User onSearch={handleSearch} users={users} />

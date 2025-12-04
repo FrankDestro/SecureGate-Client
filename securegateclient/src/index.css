@@ -82,6 +82,7 @@ th {
   font-size: 14px;
   color: var(--color-text-secondary);
   font-weight: 600;
+  height: 40px;
 }
 
 table th,
@@ -117,4 +118,11 @@ table td:last-child {
  height: 46px;
 }
 
-
+.title-modules-system {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--register-color-card-border);
+  padding-bottom: 8px;
+  font-size: 12px;
+}

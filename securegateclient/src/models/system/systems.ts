@@ -1,13 +1,26 @@
 export type systemDTO = {
-    id: string;
-    codigo: string;
-    nome: string;
-    descricao: string;
-    ativo: boolean,
-    criado_em: string;
-    atualizado_em: string;
-    client_id: string;
-    client_secret: string;
-    scopes: string;
-    oauth_client_ativo: boolean
-  };
+  id: number,
+  code: string
+  name: string
+  description: string
+  clientId: string
+  clientSecretHash: string
+  active: string
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+};
+
+
+export type SystemRequest = {
+  id?: string; 
+  code: string
+  name: string
+  description: string
+  clientId: string
+  clientSecretHash: string
+  active: boolean
+};
+
+

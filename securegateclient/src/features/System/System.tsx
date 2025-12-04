@@ -1,37 +1,33 @@
 import {
-  faCheckCircle,
   faEdit,
   faPlus,
-  faSave,
-  faTrash,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { systemDTO } from "../../models/system/systems";
-import { createEmptySystem, dataFormat } from "../../utils/helpers/functions";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/ModalDefault/Modal";
 import SearchInput from "../../components/SearchInput/SearchInput";
+import { systemDTO } from "../../models/system/systems";
+import { createEmptySystem } from "../../utils/helpers/functions";
 import SystemForm from "../SystemForm/SystemForm";
 import "./System.css";
-import DialogInfo from "../../components/DialogInfo/DialogInfo";
 
 type Props = {
   onSearch: (...args: string[]) => void;
   systems: systemDTO[];
+  refreshList?: () => void; // nova prop
 };
 
-function System({ onSearch, systems }: Props) {
+function System({ onSearch, systems, refreshList }: Props) {
+  // ESTADOS
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [currentSystem, setCurrentSystem] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [dialogInfoData, setDialogInfoData] = useState({
-    visible: false,
-    message: "Operação com Sucesso!",
-  });
 
+  // ABRIR MODAL
   const handleEdit = (system: any) => {
     setCurrentSystem(system);
     setShowEditModal(true);
@@ -47,27 +43,35 @@ function System({ onSearch, systems }: Props) {
     setShowAddModal(true);
   };
 
+  // FUNÇÕES PAI
   const handleSaveSystem = (updatedSystem: any) => {
     console.log("Sistema atualizado:", updatedSystem);
     setShowEditModal(false);
+    refreshList?.();
+
   };
 
-  const handleCancelEdit = () => {
-    setShowEditModal(false);
+  const handleNewSaveSystem = (updatedSystem: any) => {
+    console.log("Sistema adicionado:", updatedSystem);
+    setShowAddModal(false); // FECHA MODAL
+    refreshList?.();
   };
 
+  const handleCancel = (info: boolean) => {
+    setShowAddModal(info);
+    setShowEditModal(info);
+    setShowDeleteModal(info);
+  };
+
+  // FUNÇÃO DE BUSCA RESULTADOS
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     onSearch(searchTerm);
   }
 
-  const handleDialogInfoClose = () => {
-    setDialogInfoData({ ...dialogInfoData, visible: false });
-  };
-
   return (
     <div className="system-container-main">
-      <div className="system-container-title">
+      <div className="title-modules-system">
         <h1>Sistemas</h1>
         <Button
           text="Adicionar Sistema"
@@ -95,12 +99,15 @@ function System({ onSearch, systems }: Props) {
             <tr>
               <th>ID</th>
               <th>Nome</th>
+              <th>Código</th>
+              <th>Descrição</th>
               <th>Client ID</th>
               <th>Client Secret</th>
-              <th>Descrição</th>
-              <th>Ativo</th>
               <th>Data Registro</th>
+              <th>Registrado por</th>
               <th>Data Última Atualização</th>
+              <th>Atualziado por</th>
+              <th>Ativo</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -108,27 +115,28 @@ function System({ onSearch, systems }: Props) {
             {systems.map((system) => (
               <tr key={system.id}>
                 <td>{system.id}</td>
-                <td>{system.nome}</td>
-                <td>{system.client_id}</td>
-                <td>{system.client_secret}</td>
-                <td>{system.descricao}</td>
+                <td>{system.name}</td>
+                <td>{system.code}</td>
+                <td>{system.description}</td>
+                <td>{system.clientId}</td>
+                <td>{system.clientSecretHash}</td>
+                <td>{system.createdAt}</td>
+                <td>{system.createdBy}</td>
+                <td>{system.updatedAt}</td>
+                <td>{system.updatedBy}</td>
                 <td>
                   <div className="system-container-status">
                     <span
                       className={
-                        system.ativo ? "dot-status" : "dot-status-non-active"
+                        system.active ? "dot-status" : "dot-status-non-active"
                       }
                     ></span>
-                    <span>{system.ativo ? "SIM" : "NÃO"}</span>
+                    <span>{system.active ? "SIM" : "NÃO"}</span>
                   </div>
                 </td>
-                <td>{dataFormat(system.criado_em)}</td>
-                <td>{dataFormat(system.atualizado_em)}</td>
-
                 <td>
                   <div className="system-container-opcoes">
-                
-                    <div className="container-delete-icon">
+                    {/* <div className="container-delete-icon">
                       <div onClick={() => handleDelete(system)}>
                         <FontAwesomeIcon
                           icon={faTrash}
@@ -136,17 +144,17 @@ function System({ onSearch, systems }: Props) {
                           className="delete-icon"
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="container-edit-icon">
-                      <div  onClick={() => handleEdit(system)}>
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        fontSize={16}
-                        className="edit-icon"
-                      />
-                    
+                      <div onClick={() => handleEdit(system)}>
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          fontSize={16}
+                          className="edit-icon"
+                        />
+
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </td>
               </tr>
@@ -155,82 +163,58 @@ function System({ onSearch, systems }: Props) {
         </table>
       </div>
 
+      {/* MODAIS */}
+      {/* ADICIONAR  */}
       <Modal
         title="Adicionar um Sistema"
         isOpen={showAddModal}
-        onClose={() => setShowAddModal(false)}
-        footer={
-          <Button
-            text="Salvar"
-            icon={faSave}
-            background="#006d77"
-            hoverColor="#004f59"
-            borderRadius="5px"
-            onClick={() => setShowAddModal(true)}
-            fullWidth={true}
-          />
-        }
-      >
+        onClose={() => setShowAddModal(false)}>
         <SystemForm
           system={currentSystem!}
-          onCancel={() => setShowAddModal(false)}
-          onSave={handleSaveSystem}
+          onSave={handleNewSaveSystem}
+          onCancel={handleCancel}
         />
       </Modal>
 
+      {/* EDITAR  */}
       <Modal
-        title={`Editar Sistema: ${currentSystem?.nome}`}
+        title={`Editar Sistema: ${currentSystem?.name}`}
         isOpen={showEditModal}
-        onClose={handleCancelEdit}
-        footer={
-          <Button
-            text="Salvar Alterações"
-            icon={faSave}
-            background="#006d77"
-            hoverColor="#004f59"
-            borderRadius="5px"
-            onClick={() => handleSaveSystem(currentSystem)}
-            fullWidth={true}
-          />
-        }
-      >
+        onClose={() => setShowEditModal(false)}>
         <SystemForm
           system={currentSystem}
-          onCancel={handleCancelEdit}
           onSave={handleSaveSystem}
+          onCancel={handleCancel}
         />
       </Modal>
 
-      <Modal
-        title={`Deletar Sistema: ${currentSystem?.nome}`}
+      {/* DELETAR  */}
+      {/* <Modal
+        title={`Deletar Sistema: ${currentSystem?.name}`}
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         footer={
-          <Button
-            text="Deletar"
-            icon={faTrash}
-            background="#006d77"
-            hoverColor="#004f59"
-            borderRadius="5px"
-            onClick={() => setShowDeleteModal(false)}
-            fullWidth={true}
-          />
+          <>
+            <Button
+              text="Confirmar"
+              icon={faTrash}
+              background="#006d77"
+              hoverColor="#004f59"
+              borderRadius="5px"
+              onClick={() => setShowDeleteModal(false)}
+              fullWidth={true} />
+            <Button
+              text="Cancelar"
+              icon={faTrash}
+              background="#006d77"
+              hoverColor="#004f59"
+              borderRadius="5px"
+              onClick={() => setShowDeleteModal(false)}
+              fullWidth={true} /></>
         }
       >
         <div>Tem certeza que deseja deletar este sistema?</div>
-      </Modal>
-
-      {dialogInfoData.visible && (
-        <DialogInfo
-          IconColor="#3a7e24"
-          ButtonColor="#388E3C"
-          ButtonHoverColor="#2C6B2F"
-          Icon={faCheckCircle}
-          description="ação realizada com sucesso"
-          message={dialogInfoData.message}
-          onDialogClose={handleDialogInfoClose}
-        />
-      )}
+      </Modal> */}
     </div>
   );
 }

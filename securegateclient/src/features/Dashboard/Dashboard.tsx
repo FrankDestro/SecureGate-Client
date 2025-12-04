@@ -25,7 +25,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="dashboard-container-title">
+      <div className="title-modules-system">
         <h1>Painel Geral</h1>
       </div>
       <div className="date-inputs-container">

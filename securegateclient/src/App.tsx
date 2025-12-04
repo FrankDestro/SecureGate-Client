@@ -7,6 +7,7 @@ import ConfiguracaoPage from "./pages/ConfiguracaoPage/ConfiguracaoPage";
 import Home from "./pages/HomePage/HomePage";
 import SistemaPage from "./pages/SistemasPage/SistemaPage";
 import UserPage from "./pages/UserPage/UserPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -16,7 +17,6 @@ function App() {
       <Route path="/auth" element={<Auth />}>
         <Route index element={<Login />} />
       </Route>
-      
       <Route element={<MainLayout />}>
         <Route path="home" element={<Home />} />
         <Route path="user" element={<UserPage />} />
@@ -25,6 +25,7 @@ function App() {
         <Route path="configuracao" element={<ConfiguracaoPage />} />
       </Route>
     </Routes>
+      <ToastContainer position="top-right" autoClose={2500} />
   </BrowserRouter>
   );
 }

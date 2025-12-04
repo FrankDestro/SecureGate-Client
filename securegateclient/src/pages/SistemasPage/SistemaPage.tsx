@@ -6,17 +6,18 @@ import { systemDTO } from "../../models/system/systems";
 import * as systemService from "../../services/system-service";
 import NoData from "../../components/NoData/NoData";
 import { faDatabase } from "@fortawesome/free-solid-svg-icons";
+import LoadingOverlay from "../../components/shared/LoadingOverlay/LoadingOverlay";
 
 type QueryParams = {
   page: number;
   size: number;
-  nome : string;
+  nome: string;
 };
 
 function SistemaPage() {
   const [systems, setSystems] = useState<systemDTO[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalItems, setTotalItems] = useState(0); 
+  const [totalItems, setTotalItems] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
     page: 0,
     size: 10,
@@ -51,33 +52,33 @@ function SistemaPage() {
     });
   };
 
-  useEffect(() => {
+  const fetchSystems = () => {
     setIsLoading(true);
+    systemService
+      .getAllSystems(queryParams.page, queryParams.size, queryParams.nome)
+      .then((response) => {
+        const { totalElements, content } = response.data;
+        setTotalItems(totalElements);
+        setSystems(content);
+      })
+      .finally(() => setIsLoading(false));
+  };
 
-    const timer = setTimeout(() => {
-      systemService
-        .getAllSystems(queryParams.page, queryParams.size, queryParams.nome)
-        .then((response) => {
-          const { totalElements, content } = response.data;
-          setTotalItems(totalElements);
-          setSystems(content);
-        })
-        .finally(() => setIsLoading(false));
-    }, 0);
-
-    return () => clearTimeout(timer);
+  useEffect(() => {
+    fetchSystems();
   }, [queryParams]);
 
+
+
+  
   return (
     <div className="app-container-content">
       {isLoading ? (
-        <div className="spinner-container">
-          <div className="spinner-border" role="status"></div>
-          <span>Carregando....</span>
-        </div>
+        <LoadingOverlay />
       ) : systems.length === 0 ? (
         <>
-          <System onSearch={handleSearch} systems={systems} />
+          <System onSearch={handleSearch} systems={systems}   refreshList={fetchSystems} // ⚡ aqui passa a função para o filho
+ />
           <NoData icon={faDatabase} message="Não há dados disponíveis" />
         </>
       ) : (

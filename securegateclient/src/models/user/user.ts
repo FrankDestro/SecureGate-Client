@@ -13,3 +13,10 @@ export type UserDTOListing = {
   credentialsNonExpired: boolean;
   mfaEnabled: boolean;
 };
+
+
+export type UserDTORequest = {
+  name: string;
+  email: string;
+};
+

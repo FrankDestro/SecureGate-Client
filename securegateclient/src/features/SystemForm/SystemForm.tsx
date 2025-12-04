@@ -1,50 +1,32 @@
-import React, { useState, useEffect } from "react";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import Button from "../../components/Button/Button";
+import { SystemRequest } from "../../models/system/systems";
+import * as systemService from "../../services/system-service";
 import "./SystemForm.css";
 
-type System = {
-  id?: string;
-  name: string;
-  clientId: string;
-  clientSecret: string;
-  description: string;
-  active: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  roles: string[];
-  permissions: string[];
-};
-
 type Props = {
-  system?: System; // Permitir que o `system` seja opcional, para o caso de criação de novo
-  onCancel: () => void;
-  onSave: (updatedSystem: System) => void;
+  system?: SystemRequest;
+  onSave: (updatedSystem: SystemRequest) => void;
+  onCancel: (info: boolean) => void;
 };
 
-const availableRoles = ["ADMIN", "SUPERVISOR", "USER"];
-const availablePermissions = [
-  "VIEW_DASHBOARD",
-  "MANAGE_USERS",
-  "EDIT_SETTINGS",
-];
-
-const SystemForm: React.FC<Props> = ({ system, onCancel, onSave }) => {
-  const [formData, setFormData] = useState<System>({
-    id: "",
+const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
+  const [formData, setFormData] = useState<SystemRequest>({
     name: "",
-    clientId: "",
-    clientSecret: "",
+    code: "",
     description: "",
-    active: true,
-    roles: [],
-    permissions: [],
+    clientId: "",
+    clientSecretHash: "",
+    active: false,
   });
+  const isCreating = !system?.clientId;
 
   useEffect(() => {
     if (system) {
       setFormData({
         ...system,
-        roles: system.roles ?? [],
-        permissions: system.permissions ?? [],
       });
     }
   }, [system]);
@@ -56,31 +38,43 @@ const SystemForm: React.FC<Props> = ({ system, onCancel, onSave }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const toggleRole = (role: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      roles: prev.roles.includes(role)
-        ? prev.roles.filter((r) => r !== role)
-        : [...prev.roles, role],
-    }));
-  };
-
-  const togglePermission = (perm: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      permissions: prev.permissions.includes(perm)
-        ? prev.permissions.filter((p) => p !== perm)
-        : [...prev.permissions, perm],
-    }));
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+
+    const requestBody: SystemRequest = {
+      id: system?.id,
+      ...formData,
+    };
+
+    if (isCreating) {
+      systemService
+        .addAuthClient(requestBody)
+        .then(() => {
+          toast.success("Sistema cadastrado com sucesso!");
+          onSave(formData);
+        })
+        .catch(() => {
+          toast.error("Erro ao cadastrar Sistema.");
+        });
+    } else {
+      systemService
+        .UpdateAuthClient(requestBody)
+        .then(() => {
+          toast.success("Sistema atualizado com sucesso!");
+          onSave(formData);
+        })
+        .catch(() => {
+          toast.error("Erro ao atualizar Sistema.");
+        });
+    };
+  }
+
+  const handleCancel = () => {
+    onCancel(false);
   };
 
   return (
-    <form className="systemForm-container" onSubmit={handleSubmit}>
+    <form id="systemForm" className="systemForm-container" onSubmit={handleSubmit}>
       <div className="systemForm-section">
         <label>Nome:</label>
         <input
@@ -93,27 +87,15 @@ const SystemForm: React.FC<Props> = ({ system, onCancel, onSave }) => {
       </div>
 
       <div className="systemForm-section">
-        <label>Client ID:</label>
+        <label>Cógido:</label>
         <input
           className="systemForm-input"
           type="text"
-          value={formData.clientId}
-          readOnly
+          name="code"
+          value={formData.code}
+          onChange={handleChange}
         />
       </div>
-
-      <div className="systemForm-section">
-        <label>Client Secret:</label>
-        <div className="systemForm-secret-field">
-          <input
-            className="systemForm-input"
-            type="text"
-            value={formData.clientSecret}
-            readOnly
-          />
-        </div>
-      </div>
-
       <div className="systemForm-section">
         <label>Descrição:</label>
         <textarea
@@ -125,35 +107,70 @@ const SystemForm: React.FC<Props> = ({ system, onCancel, onSave }) => {
       </div>
 
       <div className="systemForm-section">
-        <label>Roles:</label>
-        <div className="systemForm-checkbox-group">
-          {availableRoles.map((role) => (
-            <label key={role}>
-              <input
-                type="checkbox"
-                checked={formData.roles?.includes(role) ?? false}
-                onChange={() => toggleRole(role)}
-              />
-              {role}
-            </label>
-          ))}
-        </div>
+        <label>Client ID:</label>
+        <input
+          className="systemForm-input"
+          name="clientId"
+          type="text"
+          value={formData.clientId}
+          onChange={handleChange}
+        />
       </div>
 
       <div className="systemForm-section">
-        <label>Permissões:</label>
-        <div className="systemForm-checkbox-group">
-          {availablePermissions.map((perm) => (
-            <label key={perm}>
-              <input
-                type="checkbox"
-                checked={formData.permissions?.includes(perm) ?? false}
-                onChange={() => togglePermission(perm)}
-              />
-              {perm}
-            </label>
-          ))}
+        <label>Client Secret:</label>
+        <div className="systemForm-secret-field">
+          <input
+            className="systemForm-input"
+            type="text"
+            name="clientSecretHash"
+            value={formData.clientSecretHash}
+            onChange={handleChange}
+          />
         </div>
+      </div>
+
+      {!isCreating && (
+        <div className="systemForm-section">
+          <label>Status:</label>
+          <select
+            name="active"
+            value={formData.active ? "true" : "false"}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                active: e.target.value === "true",
+              }))
+            }
+            className="systemForm-input"
+          >
+            <option value="true">Ativo</option>
+            <option value="false">Não Ativo</option>
+          </select>
+        </div>
+      )}
+
+      <div className="container-buttons">
+        <Button
+          text={isCreating ? "Salvar" : "Salvar Alterações"}
+          icon={faCheck}
+          form="systemForm"
+          background="#006d77"
+          hoverColor="#004f59"
+          borderRadius="5px"
+          fullWidth={true}
+          type="submit"
+        />
+
+        <Button
+          text="Cancelar"
+          icon={faXmark}
+          background="#006d77"
+          hoverColor="#004f59"
+          borderRadius="5px"
+          fullWidth={true}
+          onClick={handleCancel}
+        />
       </div>
     </form>
   );

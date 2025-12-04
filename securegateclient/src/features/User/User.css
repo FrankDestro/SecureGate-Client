@@ -5,14 +5,6 @@
   border-radius: 5px;
 }
 
-.user-container-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--register-color-card-border);
-  padding-bottom: 20px;
-}
-
 .user-container-status {
   display: flex;
   align-items: center;

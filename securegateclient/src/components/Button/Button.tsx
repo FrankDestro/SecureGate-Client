@@ -20,10 +20,13 @@ type Props = {
   disabled?: boolean;
   loadingText?: string;
   typeSppiner?: string;
+    form?: string; // <-- ADICIONADO AGORA
+
 };
 
 function Button({
   text,
+   form,
   icon,
   background,
   hoverColor,
@@ -83,6 +86,7 @@ function Button({
       <button
         className={`button-container ${size}`}
         type={type}
+         form={form} 
         style={{
           background: isHovered && hoverColor ? hoverColor : background,
           borderRadius,

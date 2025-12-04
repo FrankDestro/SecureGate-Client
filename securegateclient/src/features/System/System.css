@@ -5,14 +5,6 @@
   border-radius: 5px;
 }
 
-.system-container-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--register-color-card-border);
-  padding-bottom: 20px;
-}
-
 .system-container-status {
   display: flex;
   align-items: center;
@@ -50,4 +42,11 @@
   border-radius: 50%;
   display: inline-block;
   background-color: rgba(255, 73, 41, 0.822);
+}
+
+.container-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
 }

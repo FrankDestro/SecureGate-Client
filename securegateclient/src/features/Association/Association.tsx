@@ -2,7 +2,7 @@ import { faSave, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Button from "../../components/Button/Button";
 import SearchInput from "../../components/SearchInput/SearchInput";
-import TransferList from "../../components/TransferList/TransferList";
+import SystemRoleTree from "../../components/TransferList/TransferList";
 import "./Association.css";
 
 function Association() {
@@ -41,7 +41,7 @@ function Association() {
 
   return (
     <div className="system-container-main">
-      <div className="system-container-title">
+      <div className="title-modules-system">
         <h1>Associar Sistema ao Usuário</h1>
       </div>
       <div className="association-container-search">
@@ -79,12 +79,8 @@ function Association() {
 
       {usuario && (
         <div className="transfer-list-info">
-          <TransferList
-            sistemasAssociados={usuario.sistemasAssociados}
-            setSistemasAssociados={(novosSistemas: string[]) =>
-              setUsuario({ ...usuario, sistemasAssociados: novosSistemas })
-            }
-          />
+         
+         <SystemRoleTree/>
         </div>
       )}
 

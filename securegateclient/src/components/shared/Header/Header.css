@@ -7,7 +7,7 @@
   height: 70px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0px 30px 0px 20px;
 }
 
 nav {
@@ -29,12 +29,11 @@ nav a {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px;
 }
 
 .container-left img {
-  width: 60px;
-  height: 60px;
+  width: 200px;
+  height: auto;
 }
 
 .register-navbar-right {
@@ -50,12 +49,17 @@ nav a {
 }
 
 .container-photo-info-user img {
-  width: 40px; /* tamanho mais visível */
+  width: 40px;
+  /* tamanho mais visível */
   height: 40px;
-  border-radius: 50%; /* mantém o formato circular */
-  border: 2px solid white; /* borda branca ao redor */
-  object-fit: cover; /* garante que a imagem preencha o espaço sem distorcer */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* sombra leve para destaque */
+  border-radius: 50%;
+  /* mantém o formato circular */
+  border: 2px solid white;
+  /* borda branca ao redor */
+  object-fit: cover;
+  /* garante que a imagem preencha o espaço sem distorcer */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  /* sombra leve para destaque */
 }
 
 .container-photo-info-user img:hover {
@@ -86,4 +90,3 @@ nav a {
   font-weight: bold;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
-
