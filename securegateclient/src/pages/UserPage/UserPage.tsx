@@ -13,8 +13,6 @@ type QueryParams = {
   size: number;
 };
 
-const DEV_DELAY = 9000;
-
 function UserPage() {
   const [users, setUsers] = useState<UserDTOListing[]>([]);
   const [isLoading, setIsLoading] = useState(false);

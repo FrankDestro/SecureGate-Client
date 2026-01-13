@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom'
-import Association from '../../features/Association/Association'
+import AssociationModule from '../../features/Association/AssociationModule'
 
 function AssociacaoPage() {
   return (
-    <div className="app-container-content ">
-      <Association/>
+    <div className="app-container-content">
+      <AssociationModule/>
       <Outlet/>
     </div>
   )

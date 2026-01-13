@@ -68,9 +68,6 @@ function SistemaPage() {
     fetchSystems();
   }, [queryParams]);
 
-
-
-  
   return (
     <div className="app-container-content">
       {isLoading ? (
@@ -94,7 +91,6 @@ function SistemaPage() {
           />
         </>
       )}
-
       <Outlet />
     </div>
   );

@@ -1,14 +1,15 @@
-import { faBan, faCogs, faLayerGroup, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCogs, faLayerGroup, faPeopleGroup, faPowerOff, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "../../../../components/CardSummary/CardSummary";
 import "./Summary.css";
 
 function Summary() {
   const summaryData = [
-    { title: "Total de Usuários Cadastrados", value: 1200, icon: faUser },
-    { title: "Total de Sistemas Registrados", value: 8, icon: faCogs },
+    { title: "Total de Usuários Cadastrados", value: 1200, icon: faUsers },
+    { title: "Total de Sistemas Registrados", value: 32, icon: faCogs },
     { title: "Total de Associações Sistema/Usuário", value: 3000, icon: faLayerGroup },
-    { title: "Total de Usuários Inativos", value: 150, icon: faBan },
+    { title: "Total de Usuários Ativos", value: 300, icon: faPeopleGroup },
+    { title: "Total de Usuários Inativos", value: 300, icon: faPowerOff },
   ];
 
   return (

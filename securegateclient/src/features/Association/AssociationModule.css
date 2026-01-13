@@ -1,0 +1,340 @@
+/* src/pages/Association/Association.css */
+
+.association-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacOSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.association-container {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.association-header {
+  padding: 32px 32px 24px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #bcbdc0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+}
+
+.association-header h1 {
+  margin: 0;
+  font-size: 1.85rem;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.association-header p {
+  margin: 8px 0 0;
+  color: #6c757d;
+  font-size: 1.05rem;
+}
+
+/* Busca */
+.search-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.search-wrapper input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  border-color: #009688;
+  box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.15);
+}
+
+.btn-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  background: #009688;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-search:hover {
+  background: #00796b;
+}
+
+/* Perfis */
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.profile-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.profile-item:hover {
+  background: #f1f8f7;
+  border-color: #b2dfdb;
+}
+
+.profile-item input {
+  margin-top: 4px;
+  width: 20px;
+  height: 20px;
+  accent-color: #009688;
+}
+
+.profile-info strong {
+  color: #1a1a1a;
+  font-size: 1.05rem;
+}
+
+.profile-info span {
+  color: #6c757d;
+  font-size: 0.95rem;
+  display: block;
+  margin-top: 4px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.profile-actions button {
+  background: none;
+  border: none;
+  color: #009688;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #009688;
+
+}
+
+.profile-actions button:hover {
+  text-decoration: none;
+}
+
+
+
+/* Resumo */
+.summary-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.summary-grid>div {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summary-grid strong {
+  color: #2c3e50;
+}
+
+.summary-grid span {
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.profile-tags {
+  color: #00695c;
+  font-weight: 600;
+}
+
+
+
+
+/* Ações */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background: #e9ecef;
+  color: #495057;
+  border: none;
+}
+
+.btn-cancel:hover {
+  background: #dee2e6;
+}
+
+.btn-save {
+  background: #009688;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-save:hover {
+  background: #00796b;
+}
+
+.btn-save:disabled {
+  background: #b2dfdb;
+  cursor: not-allowed;
+}
+
+
+.container-sistemas-associados {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e6eaf0;
+}
+
+
+
+/* NOVO CSS */
+/* ===============================
+   Container principal
+================================ */
+.user-access-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #bcbdc0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+}
+
+/* ===============================
+   Título e subtítulo
+================================ */
+.user-access-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.user-access-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+/* ===============================
+   Grid de sistemas
+================================ */
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+/* ===============================
+   Card do sistema
+================================ */
+.system-card {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.system-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   Título do sistema
+================================ */
+.system-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   Container de perfis
+================================ */
+.roles-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ===============================
+   Badge de perfil
+================================ */
+.role-badge {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 999px;
+  background: #e0ecff;
+  color: #1e3a8a;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ===============================
+   Empty state (opcional)
+================================ */
+.empty-access {
+  padding: 16px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ===============================
+   Responsivo
+================================ */
+@media (max-width: 768px) {
+  .user-access-container {
+    padding: 16px;
+  }
+
+  .user-access-title {
+    font-size: 20px;
+  }
+}
