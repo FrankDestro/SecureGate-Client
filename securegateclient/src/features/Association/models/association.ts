@@ -27,3 +27,9 @@ export type PerfisDTO = {
     roleId: number,
     roleName: string,
 }
+
+export type AssociationDTO = {
+    userId: number,
+    systemId: number,
+    roleList: number[]
+}

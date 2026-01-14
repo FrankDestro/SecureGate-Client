@@ -46,8 +46,8 @@ function Dashboard() {
         <Button
           text="Filtrar"
           icon={faFilter}
-          background="#006d77"
-          hoverColor="#004f59"
+          background="#009688"
+          hoverColor="#00796b"
           borderRadius="5px"
           onClick={handleFilter}
           isLoading={loading}

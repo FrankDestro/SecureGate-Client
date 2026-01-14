@@ -1,7 +1,8 @@
 .sidebar {
   width: 250px;
   height: calc(100vh - 120px);
-  background-color: #1f2937;
+  background: -webkit-linear-gradient(77deg, #000000, #0d1521, #070e18);
+  background: linear-gradient(77deg, #000000, #0d1521, #070e18);
   color: white;
   display: flex;
   flex-direction: column;

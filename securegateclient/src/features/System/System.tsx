@@ -76,8 +76,8 @@ function System({ onSearch, systems, refreshList }: Props) {
         <Button
           text="Adicionar Sistema"
           icon={faPlus}
-          background="#006d77"
-          hoverColor="#004f59"
+          background="#009688"
+          hoverColor="#00796b"
           borderRadius="5px"
           onClick={handleAdd}
         />

@@ -71,8 +71,8 @@ function User({ onSearch, users }: Props) {
         <Button
           text="Adicionar Usuário"
           icon={faPlus}
-          background="#006d77"
-          hoverColor="#004f59"
+           background="#009688"
+          hoverColor="#00796b"
           borderRadius="5px"
           onClick={handleAdd}
         />
@@ -178,8 +178,8 @@ function User({ onSearch, users }: Props) {
           <Button
             text="Salvar"
             icon={faSave}
-            background="#006d77"
-            hoverColor="#004f59"
+             background="#009688"
+          hoverColor="#00796b"
             borderRadius="5px"
             onClick={() => handleSaveUser(currentUser)}
           />
@@ -200,8 +200,8 @@ function User({ onSearch, users }: Props) {
           <Button
             text="Salvar Alterações"
             icon={faSave}
-            background="#006d77"
-            hoverColor="#004f59"
+              background="#009688"
+          hoverColor="#00796b"
             borderRadius="5px"
             onClick={() => handleSaveUser(currentUser)}
           />

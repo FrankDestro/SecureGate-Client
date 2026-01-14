@@ -155,8 +155,8 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
           text={isCreating ? "Salvar" : "Salvar Alterações"}
           icon={faCheck}
           form="systemForm"
-          background="#006d77"
-          hoverColor="#004f59"
+          background="#009688"
+          hoverColor="#00796b"
           borderRadius="5px"
           fullWidth={true}
           type="submit"
@@ -165,8 +165,8 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
         <Button
           text="Cancelar"
           icon={faXmark}
-          background="#006d77"
-          hoverColor="#004f59"
+          background="#009688"
+          hoverColor="#00796b"
           borderRadius="5px"
           fullWidth={true}
           onClick={handleCancel}

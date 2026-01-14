@@ -1,5 +1,7 @@
 .register-header-client {
-  background-color: var(--securegate-header-bg-color);
+  background: -webkit-linear-gradient(276deg, #0d1521, #0d1521, #070e18);
+  background: linear-gradient(276deg, #0d1521, #0d1521, #070e18);
+  color: white;
   color: var(--securegate-color-header-title-text);
   border-bottom: 2px solid var(--color-border);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

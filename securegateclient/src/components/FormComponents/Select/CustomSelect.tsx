@@ -1,11 +1,6 @@
 import React from 'react';
 import { Select } from 'antd';
 
-type OptionType = {
-  value: string | number;
-  label: React.ReactNode;
-};
-
 type CustomSelectProps = {
   options: any;
   placeholder?: string;
