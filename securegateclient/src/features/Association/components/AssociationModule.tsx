@@ -1,15 +1,18 @@
 // src/pages/Association/Association.tsx
 import { faSave, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dayjs } from 'dayjs';
 import { useState } from "react";
+import { toast } from "react-toastify";
+import AntDateInput from "../../../components/DataInputAnt/AntDateInput";
 import CustomSelect from "../../../components/FormComponents/Select/CustomSelect";
-import "./AssociationModule.css";
+import { formatDateToApi } from "../../../utils/helpers/functions";
+import useAssociation from "../hooks/useAssociation";
 import useSistema from "../hooks/useSistemas";
 import useSistemaPerfis from "../hooks/useSistemasPerfis";
 import useUsuario from "../hooks/useUsuario";
-import useAssociation from "../hooks/useAssociation";
 import { AssociationDTO } from "../models/association";
-import { toast } from "react-toastify";
+import "./AssociationModule.css";
 
 type QueryParams = {
   text: string;
@@ -23,6 +26,8 @@ export default function AssociationModule() {
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
   const [selectedSystem, setSelectedSystem] = useState<string | number>();
   const [queryParams, setQueryParams] = useState<QueryParams>({ text: "" });
+  const [dataInicial, setDataInicial] = useState<Dayjs | null>(null);
+  const [dataFinal, setDataFinal] = useState<Dayjs | null>(null);
   const { submit } = useAssociation();
 
   // =====  FILTRO DE BUSCA USUÁRIO  =====
@@ -48,12 +53,31 @@ export default function AssociationModule() {
   // ===== REQUISIÇÃO DE SALVAR ASSOCACIAÇÃO =====
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selectedUser || !selectedSystem || selectedProfiles.length === 0) return;
+
+    if (
+      !selectedUser ||
+      !selectedSystem ||
+      selectedProfiles.length === 0 ||
+      dataInicial == null ||
+      dataFinal == null
+    ) {
+      toast.warning("Preencha todos os campos obrigatórios");
+      return;
+    }
+
+    const datasFormatadas = {
+      dataInicial: formatDateToApi(dataInicial),
+      dataFinal: formatDateToApi(dataFinal),
+    };
+
     const associationRequestObj: AssociationDTO = {
       userId: Number(selectedUser),
       systemId: Number(selectedSystem),
       roleList: selectedProfiles.map(Number),
+      dataInicialAcesso: datasFormatadas.dataInicial,
+      dataFinalAcesso: datasFormatadas.dataFinal,
     };
+
     const status = await submit(associationRequestObj);
     if (status === 200 || status === 201) {
       toast.success("Associação salva com sucesso!");
@@ -81,6 +105,8 @@ export default function AssociationModule() {
     setSelectedSystem(undefined);
     setSelectedProfiles([]);
     setQueryParams({ text: "" });
+    setDataInicial(null)
+    setDataFinal(null)
   };
 
   return (
@@ -90,9 +116,9 @@ export default function AssociationModule() {
         <p>Configure os acessos e permissões</p>
       </header>
 
-      {/* Usuário */}
+      {/* Busca Usuário */}
       <section className="user-access-container">
-        <h2>Usuário</h2>
+        <h2 style={{ marginBottom: "10px" }}>Usuário</h2>
         <div className="search-wrapper">
           <input
             type="text"
@@ -110,54 +136,61 @@ export default function AssociationModule() {
 
       <form onSubmit={handleSubmit}>
 
-        {/* RESUMO INFO USUARIO */}
-        <section className="user-access-container">
-          <h2>Dados do Usuário e Acessos Atuais</h2>
-          <div className="summary-grid">
-            <div>
-              <strong>Matricula:</strong>
-              <span>{usuario?.id}</span>
-            </div>
-            <div>
-              <strong>Usuário:</strong>
-              <span>{usuario?.email}</span>
-            </div>
-            <div>
-              <strong>Email:</strong>
-              <span>{usuario?.email}</span>
-            </div>
-          </div>
-        </section>
 
-        <div className="user-access-container">
-          <h2 className="user-access-title">
-            Acessos Atuais do Usuário
-          </h2>
-          <p className="user-access-subtitle">
-            Sistemas e perfis já associados a este usuário
-          </p>
-          {usuario?.sistemas.map((sistema) => (
-            <div className="systems-grid">
-              <div key={sistema.systemId} className="system-card">
-                <div className="system-title">{sistema.systemName}</div>
-                <div className="roles-container">
-                  {sistema.permissions.map((permissions) => (
-                    <span key={permissions.roleId} className="role-badge">
-                      {permissions.roleName}
-                    </span>
-                  ))}
+        {usuario && (
+          <>
+            {/* RESUMO INFO USUARIO */}
+            <section className="user-access-container">
+              <h2>Dados do Usuário e Acessos Atuais</h2>
+              <div className="summary-grid">
+                <div>
+                  <strong>Matricula:</strong>
+                  <span>{usuario?.id}</span>
+                </div>
+                <div>
+                  <strong>Usuário:</strong>
+                  <span>{usuario?.email}</span>
+                </div>
+                <div>
+                  <strong>Email:</strong>
+                  <span>{usuario?.email}</span>
                 </div>
               </div>
-            </div>
+            </section>
 
-          ))}
-        </div>
+            <div className="user-access-container">
+              <h2 className="user-access-title">
+                Acessos Atuais do Usuário
+              </h2>
+              <p className="user-access-subtitle">
+                Sistemas e perfis já associados a este usuário
+              </p>
+              {usuario?.sistemas.map((sistema) => (
+                <div className="systems-grid">
+                  <div key={sistema.systemId} className="system-card">
+                    <div className="system-title">{sistema.systemName}</div>
+                    <div className="roles-container">
+                      {sistema.permissions.map((permissions) => (
+                        <span key={permissions.roleId} className="role-badge">
+                          {permissions.roleName}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              ))}
+            </div>
+          </>
+        )}
+
+
 
         {/* Sistema */}
         {selectedUser && (
           <>
             <section className="user-access-container">
-              <h2>Sistema</h2>
+              <h2 style={{ marginBottom: "10px" }}>Sistema</h2>
               <CustomSelect
                 options={opcoesSistemas}
                 placeholder="Selecione um sistema"
@@ -165,8 +198,42 @@ export default function AssociationModule() {
                 style={{ width: 300, marginBottom: 20 }}
                 value={selectedSystem}
               />
-            </section>
 
+              <div className="container-data-acesso-sistema">
+                <div className="date-input-container">
+                  <AntDateInput
+                    label="Data Inical de acesso"
+                    value={dataInicial}
+                    placeholder="Selecione uma Data Inicial"
+                    onChange={(d, str) => {
+                      console.log('Dayjs:', d);
+                      console.log('String:', str);
+                      setDataInicial(d);
+                    }}
+                  />
+
+                </div>
+                <div className="date-input-container">
+                  <AntDateInput
+                    label="Data Final de acesso"
+                    value={dataFinal}
+                    placeholder="Selecione uma data final"
+                    onChange={(d, str) => {
+                      console.log('Dayjs:', d);
+                      console.log('String:', str);
+                      setDataFinal(d);
+                    }}
+                  />
+                </div>
+              </div>
+            </section>
+          </>
+        )}
+
+
+
+        {selectedSystem && (
+          <>
             {/* Perfis */}
             <section className="user-access-container">
               <h2>Perfis Disponíveis</h2>
@@ -222,7 +289,11 @@ export default function AssociationModule() {
                 </div>
               </div>
             </section>
+          </>
+        )}
 
+        {selectedSystem && (
+          <>
             {/* Botões de ação */}
             <section className="user-access-container">
               <div className="action-buttons">
@@ -230,14 +301,13 @@ export default function AssociationModule() {
                 <button
                   className="btn-save"
                   type="submit"
-                  disabled={!selectedSystem || selectedProfiles.length === 0}
+                  disabled={!selectedSystem || selectedProfiles.length === 0 || !useSistema || !dataInicial || !dataFinal}
                 >
                   <FontAwesomeIcon icon={faSave} />
                   Salvar Associação
                 </button>
               </div>
             </section>
-
           </>
         )}
       </form>

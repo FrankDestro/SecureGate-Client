@@ -1,0 +1,83 @@
+/* ===========================
+   Container
+=========================== */
+.ant-date-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ===========================
+   Label
+=========================== */
+.ant-date-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+/* ===========================
+   DatePicker base
+=========================== */
+.ant-date-input.ant-picker {
+  width: 100%;
+  height: 40px;
+  padding: 4px 11px;
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+/* ===========================
+   Input interno (remove underline)
+=========================== */
+.ant-date-input .ant-picker-input > input {
+  font-size: 14px;
+  line-height: 1.5715;
+  color: rgba(0, 0, 0, 0.88);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Remove pseudo-elementos que criam linha */
+.ant-date-input .ant-picker-input > input::before,
+.ant-date-input .ant-picker-input > input::after,
+.ant-date-input .ant-picker-input::before,
+.ant-date-input .ant-picker-input::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* ===========================
+   Hover
+=========================== */
+.ant-date-input.ant-picker:hover {
+  border-color: #4096ff;
+}
+
+/* ===========================
+   Focus
+=========================== */
+.ant-date-input.ant-picker-focused {
+  border-color: #4096ff;
+  box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
+}
+
+/* ===========================
+   Disabled
+=========================== */
+.ant-date-input.ant-picker-disabled {
+  background-color: #f5f5f5;
+}
+
+/* ===========================
+   Ícone do calendário
+=========================== */
+.ant-date-input .ant-picker-suffix {
+  color: rgba(0, 0, 0, 0.45);
+}

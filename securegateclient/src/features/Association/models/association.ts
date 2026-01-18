@@ -32,4 +32,6 @@ export type AssociationDTO = {
     userId: number,
     systemId: number,
     roleList: number[]
+    dataInicialAcesso : string | null,
+    dataFinalAcesso: string | null,
 }

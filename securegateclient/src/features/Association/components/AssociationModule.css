@@ -265,6 +265,12 @@
   margin-bottom: 10px;
 }
 
+.container-data-acesso-sistema {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* ===============================
    Card do sistema
 ================================ */

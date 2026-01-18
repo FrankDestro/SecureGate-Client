@@ -1,3 +1,5 @@
+import type { Dayjs } from 'dayjs';
+
 export function dataFormat(value: string): string {
   const date = new Date(value);
 
@@ -39,4 +41,6 @@ export function formatSystemsTooltip(systems: { [key: string]: any }): string {
 }
 
 
-
+export const formatDateToApi = (date?: Dayjs | null): string | null => {
+  return date ? date.format('YYYY-MM-DD') : null;
+};
