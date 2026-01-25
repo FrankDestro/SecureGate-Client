@@ -1,104 +1,136 @@
+/* ===============================
+   PAGINATION – GLOBAL STYLE
+   =============================== */
+
 .pagination-container {
   display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: end;
-  margin-top: 30px;
-  font-family: 'Arial', sans-serif;
-  color: #333;
-  gap: 20px;
+  gap: 24px;
+  padding: 16px 0;
+  font-size: 13px;
+  color: #475569; /* slate-600 */
 }
 
+/* -------------------------------
+   CONTROLES (<< < 1 2 3 > >>)
+   ------------------------------- */
 .pagination-controls {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espaçamento entre os botões de navegação */
+  gap: 6px;
 }
 
-.page-number {
-  padding: 8px 16px;
-  border: 2px solid #ddd;
-  border-radius: 25px;
-  background-color: white;
-  font-size: 12px;
-  font-weight: 600;
-  color: #333;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.page-number.active {
-  background-color: #006d77;
-  color: white;
-  border-color: #006d77;
-}
-
-.page-number:hover {
-  background-color: #f4f4f4;
-  border-color: #888;
-}
-
-button:disabled {
-  background-color: #e0e0e0;
-  color: #bbb;
-  cursor: not-allowed;
-}
-
-button {
-  background-color: #006d77;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover:not(:disabled) {
-  background-color: #004f59;
-  color: white;
-}
-
-button:disabled:hover {
-  background-color: #e0e0e0;
-}
-
-.items-per-page {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-}
-
-.items-per-page label {
-  margin-right: 10px;
-  font-weight: 600;
-  color: #555;
-}
-
-.items-per-page select {
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 25px;
-  font-size: 13px;
-  background-color: white;
-  cursor: pointer;
-  transition: border-color 0.3s, background-color 0.3s;
-}
-
-.items-per-page select:hover {
-  border-color: #888;
-}
-
-.items-per-page select:focus {
-  border-color: #004f59;
-  background-color: #f0f8ff;
-  outline: none;
-}
-
-.pagination-footer {
+/* Botões de navegação (setas) */
+.pagination-controls button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px; /* Espaçamento entre controles e seletor de itens por página */
+  color: #64748b;
+  
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  color: #0f766e;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: #cbd5e1;
+}
+
+.pagination-controls button svg {
+  stroke: currentColor;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #f1f5f9;
+}
+
+.pagination-controls button:hover:not(:disabled) svg {
+  color: #0f766e;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:disabled svg {
+  color: #cbd5e1;
+}
+/* -------------------------------
+   NÚMEROS DE PÁGINA (PILLS)
+   ------------------------------- */
+.page-number {
+  min-width: 34px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  font-weight: 500;
+  font-size: 13px;
+  color: #334155; /* slate-700 */
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.page-number:hover {
+  background-color: #f1f5f9;
+}
+
+/* Página ativa */
+.page-number.active {
+  background-color: #0f766e; /* teal-700 */
+  color: #ffffff;
+  border-color: #0f766e;
+  font-weight: 600;
+}
+
+/* -------------------------------
+   ITENS POR PÁGINA
+   ------------------------------- */
+.items-per-page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #64748b; /* slate-500 */
+}
+
+.items-per-page label {
+  font-weight: 500;
+}
+
+.items-per-page select {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.items-per-page select:hover {
+  border-color: #94a3b8;
+}
+
+.items-per-page select:focus {
+  outline: none;
+  border-color: #0f766e;
+  background-color: #f8fafc;
+}
+
+/* -------------------------------
+   FOOTER (opcional)
+   ------------------------------- */
+.pagination-footer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }

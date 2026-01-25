@@ -2,63 +2,73 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0px 10px 0px;
+  padding: 12px 0;
+  margin: 10px 0px 10px 0px;
 }
 
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  padding: 8px 40px;
-  transition: all 0.3s ease;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 45px 10px 45px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.15);
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-wrapper.focused {
-  border-color: #1976d2; /* Cor de foco */  
+  border-color: #1976d2;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
 }
-
 
 .search-label {
   position: absolute;
-  left: 40px;
+  left: 45px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 14px;
-  color: #888;
+  font-size: 15px;
+  color: #555;
+  font-weight: 500;
   pointer-events: none;
   transition: all 0.3s ease;
+  user-select: none;
+  background-color: #fff;
+  padding: 0 6px;
+  border-radius: 4px;
+}
+
+.input-wrapper.focused .search-label,
+.input-wrapper input:not(:placeholder-shown) ~ .search-label {
+  top: -12px;
+  font-size: 13px;
+  color: #1976d2;
+  left: 15px;
+  font-weight: 600;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.15);
 }
 
 .input-wrapper input {
   width: 100%;
-  padding: 8px;
+  padding: 8px 0;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #222;
+  background-color: transparent;
 }
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 15px;
   font-size: 20px;
-  color: #888;
-}
-
-.input-wrapper.focused .search-label,
-.input-wrapper input:not(:empty) ~ .search-label {
-  top: -10px;
-  font-size: 12px; 
   color: #1976d2;
-  left: 10px;
-  
+  pointer-events: none;
+  transition: color 0.3s ease;
 }
 
-.input-wrapper input:empty ~ .search-label {
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-  color: #888;
-  left: 40px;
+.input-wrapper.focused .search-icon {
+  color: #0d47a1;
 }

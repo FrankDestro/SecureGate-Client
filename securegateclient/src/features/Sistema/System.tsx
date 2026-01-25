@@ -10,14 +10,17 @@ import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { systemDTO } from "../Sistema/models/systems";
 import "./System.css";
 import SystemForm from "./SystemForm/SystemForm";
-import { createEmptySystem } from "../../utils/functions";
+import { createEmptySystem } from "../Sistema/factories/system.factory";
+import { StatusBadge } from "../../components/StatusBadge/StatusBadge";
+import { ShieldCheck, ShieldOff } from "lucide-react";
 
 type Props = {
   onSearch: (...args: string[]) => void;
   systems: systemDTO[];
+  onReload: () => void;
 };
 
-function System({ onSearch, systems }: Props) {
+function System({ onSearch, systems, onReload }: Props) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentSystem, setCurrentSystem] = useState<any | null>(null);
@@ -35,6 +38,7 @@ function System({ onSearch, systems }: Props) {
 
   const handleSaveSystem = (updatedSystem: any) => {
     console.log("Sistema atualizado:", updatedSystem);
+    onReload();
     setShowEditModal(false);
   };
 
@@ -68,75 +72,63 @@ function System({ onSearch, systems }: Props) {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ paddingTop: "20px" }}>
           <SearchInput
             label="Buscar sistema"
             width="100%"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
       </form>
 
       <div className="system-container-table">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Código</th>
-              <th>Descrição</th>
-              <th>Client ID</th>
-              <th>Client Secret</th>
-              <th>Data Registro</th>
-              <th>Registrado por</th>
-              <th>Data Última Atualização</th>
-              <th>Atualizado por</th>
-              <th>Ativo</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {systems.map((system) => (
-              <tr key={system.id}>
-                <td>{system.id}</td>
-                <td>{system.name}</td>
-                <td>{system.code}</td>
-                <td>{system.description}</td>
-                <td>{system.clientId}</td>
-                <td>{system.clientSecretHash}</td>
-                <td>{system.createdAt}</td>
-                <td>{system.createdBy}</td>
-                <td>{system.updatedAt}</td>
-                <td>{system.updatedBy}</td>
-                <td>
-                  <div className="system-container-status">
-                    <span
-                      className={
-                        system.active
-                          ? "dot-status"
-                          : "dot-status-non-active"
-                      }
-                    />
-                    <span>{system.active ? "SIM" : "NÃO"}</span>
-                  </div>
-                </td>
-                <td>
-                  <div
-                    className="container-edit-icon"
-                    onClick={() => handleEdit(system)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faEdit}
-                      fontSize={16}
-                      className="edit-icon"
-                    />
-                  </div>
-                </td>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Data Registro</th>
+                <th>Registrado por</th>
+                <th>Data Última Atualização</th>
+                <th>Atualizado por</th>
+                <th>Ativo</th>
+                <th>Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {systems.map((system) => (
+                <tr key={system.id}>
+                  <td>{system.id}</td>
+                  <td>{system.code}</td>
+                  <td>{system.name}</td>
+                  <td>{system.createdAt}</td>
+                  <td>{system.createdBy}</td>
+                  <td>{system.updatedAt}</td>
+                  <td>{system.updatedBy}</td>
+                  <td>
+                    <StatusBadge
+                      icon={system.active ? <ShieldCheck /> : <ShieldOff />}
+                      label={system.active ? "Ativo" : "Não ativo"}
+                      variant={system.active ? "success" : "danger"}
+                    />
+                  </td>
+                 <td>
+                    <div className="table-actions">
+                      <div
+                        className="table-action table-action--edit"
+                        onClick={() => handleEdit(system)}
+                      >
+                        <FontAwesomeIcon icon={faEdit} className="icon-edit" />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+        </div>
       </div>
 
       {/* MODAIS */}

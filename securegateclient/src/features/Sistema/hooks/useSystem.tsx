@@ -12,6 +12,7 @@ function useSystem() {
     const [systems, setSystem] = useState<systemDTO[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [totalItems, setTotalItems] = useState(0);
+    const [refreshFlag, setRefreshFlag] = useState(false);
 
     const [queryParams, setQueryParams] = useState<QueryParams>({
         page: 0,
@@ -50,7 +51,11 @@ function useSystem() {
                 setTotalItems(totalElements);
             })
             .finally(() => setIsLoading(false));
-    }, [queryParams]);
+    }, [queryParams, refreshFlag]);
+
+    function reload() {
+        setRefreshFlag(prev => !prev);
+    }
 
     return {
         systems,
@@ -60,6 +65,7 @@ function useSystem() {
         search,
         changePage,
         changePageSize,
+        reload
     }
 }
 

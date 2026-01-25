@@ -8,7 +8,7 @@ import { faDatabase } from "@fortawesome/free-solid-svg-icons";
 
 function SistemaPage() {
 
-  const { systems, isLoading, totalItems, queryParams, search, changePage, changePageSize } = useSystem();
+  const { systems, isLoading, totalItems, queryParams, search, changePage, changePageSize, reload } = useSystem();
   const pageSizeOptions = [2, 10, 20];
 
   return (
@@ -17,7 +17,7 @@ function SistemaPage() {
 
       {!isLoading && (
         <>
-          <System onSearch={search} systems={systems} />
+          <System onSearch={search} systems={systems} onReload={reload} />
 
           {systems.length === 0 ? (
             <NoData icon={faDatabase} message="Não há dados disponíveis" />

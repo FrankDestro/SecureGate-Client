@@ -11,10 +11,10 @@ import { useUser } from "../../features/Usuario/hooks/useUser";
 function UserPage() {
 
   const { users, isLoading, totalItems, queryParams, search, changePage, changePageSize } = useUser();
-  const pageSizeOptions = [5, 10, 20];
+  const pageSizeOptions = [1, 10, 20];
 
   return (
-     <div className="app-container-content">
+    <div className="app-container-content">
       {isLoading && <LoadingOverlay />}
 
       {!isLoading && (
@@ -24,17 +24,19 @@ function UserPage() {
           {users.length === 0 ? (
             <NoData icon={faDatabase} message="Não há dados disponíveis" />
           ) : (
-            <Pagination
-              totalItems={totalItems}
-              itemsPerPageOptions={pageSizeOptions}
-              selectedSize={queryParams.size}
-              initialPage={queryParams.page + 1}
-              onPageSizeChange={changePageSize}
-              onPageChange={(page) => {
-                changePage(page);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            />
+            <div className="container-info-dados">
+              <p>Mostrandro {users.length} de {totalItems} resultados</p>
+              <Pagination
+                totalItems={totalItems}
+                itemsPerPageOptions={pageSizeOptions}
+                selectedSize={queryParams.size}
+                initialPage={queryParams.page + 1}
+                onPageSizeChange={changePageSize}
+                onPageChange={(page) => {
+                  changePage(page);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }} />
+            </div>
           )}
         </>
       )}

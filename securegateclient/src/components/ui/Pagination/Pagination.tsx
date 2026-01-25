@@ -1,4 +1,5 @@
 import React, { JSX, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Pagination.css";
 
 interface PaginationProps {
@@ -32,9 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      if (onPageChange) {
-        onPageChange(page - 1);
-      }
+      onPageChange?.(page - 1); // backend zero-based
     }
   };
 
@@ -44,13 +43,11 @@ const Pagination: React.FC<PaginationProps> = ({
     const newSize = Number(e.target.value);
     setItemsPerPage(newSize);
     setCurrentPage(1);
-    if (onPageSizeChange) {
-      onPageSizeChange(newSize);
-    }
+    onPageSizeChange?.(newSize);
   };
 
   const renderPageNumbers = () => {
-    let pages: JSX.Element[] = [];
+    const pages: JSX.Element[] = [];
 
     for (let i = 1; i <= totalPages; i++) {
       pages.push(
@@ -70,28 +67,32 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className="pagination-container">
       <div className="pagination-controls">
+        {/* Página anterior */}
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          aria-label="Página anterior"
         >
-          Anterior
+          <ChevronLeft size={20} />
+          <p>Anterior</p>
         </button>
+
         {renderPageNumbers()}
+
+        {/* Próxima página */}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          aria-label="Próxima página"
         >
-          Próxima
+          <ChevronRight size={20}/>
+          <p>Próximo</p>
         </button>
       </div>
 
       <div className="items-per-page">
-        <label htmlFor="itemsPerPage">Itens por página: </label>
-        <select
-          id="itemsPerPage"
-          onChange={handleItemsPerPageChange}
-          value={itemsPerPage}
-        >
+        <label>Itens por página</label>
+        <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
           {itemsPerPageOptions.map((option) => (
             <option key={option} value={option}>
               {option}
