@@ -1,6 +1,6 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../Button/Button";
+import Button from "../ui/Button/Button";
 import "./DialogInfo.css";
 
 type Props = {

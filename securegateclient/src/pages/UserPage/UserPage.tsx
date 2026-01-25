@@ -1,95 +1,46 @@
 import { faDatabase } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import NoData from "../../components/NoData/NoData";
-import Pagination from "../../components/Pagination/Pagination";
-import User from "../../features/User/User";
-import { UserDTOListing } from "../../models/user/user";
-import * as userService from "../../services/user-service";
-import LoadingOverlay from "../../components/shared/LoadingOverlay/LoadingOverlay";
 
-type QueryParams = {
-  page: number;
-  size: number;
-};
+import NoData from "../../components/ui/NoData/NoData";
+import Pagination from "../../components/ui/Pagination/Pagination";
+import LoadingOverlay from "../../layout/LoadingOverlay/LoadingOverlay";
+
+import User from "../../features/Usuario/User";
+import { useUser } from "../../features/Usuario/hooks/useUser";
 
 function UserPage() {
-  const [users, setUsers] = useState<UserDTOListing[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [totalItems, setTotalItems] = useState(0);
-  const [queryParams, setQueryParams] = useState<QueryParams>({
-    page: 0,
-    size: 10,
-  });
 
+  const { users, isLoading, totalItems, queryParams, search, changePage, changePageSize } = useUser();
   const pageSizeOptions = [5, 10, 20];
 
-  function handleSearch(searchText: string) {
-    setUsers([]);
-    const updatedParams = {
-      ...queryParams,
-      page: 0,
-      text: searchText,
-    };
-    setQueryParams(updatedParams);
-  }
-
-  function handlePageSizeChange(newSize: number) {
-    setQueryParams({
-      ...queryParams,
-      size: newSize,
-      page: 0,
-    });
-  }
-
-  const handlePageChange = (newPage: number) => {
-    setQueryParams({ ...queryParams, page: newPage });
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      userService
-        .getAllUsers(queryParams.page, queryParams.size)
-        .then((response) => {
-          const { content, totalElements } = response.data;
-          setUsers(content);
-          setTotalItems(totalElements);
-        })
-        .finally(() => setIsLoading(false));
-    });
-    return () => clearTimeout(timer);
-  }, [queryParams]);
-
   return (
-    <div className="app-container-content ">
-      {isLoading ? (
-        <LoadingOverlay />
-      ) : users.length === 0 ? (
+     <div className="app-container-content">
+      {isLoading && <LoadingOverlay />}
+
+      {!isLoading && (
         <>
-          <User onSearch={handleSearch} users={users} />
-          <NoData icon={faDatabase} message="Não há dados disponíveis" />
-        </>
-      ) : (
-        <>
-          <User onSearch={handleSearch} users={users} />
-          <Pagination
-            totalItems={totalItems}
-            itemsPerPageOptions={pageSizeOptions}
-            selectedSize={queryParams.size}
-            initialPage={queryParams.page + 1}
-            onPageSizeChange={handlePageSizeChange}
-            onPageChange={handlePageChange}
-          />
+          <User onSearch={search} users={users} />
+
+          {users.length === 0 ? (
+            <NoData icon={faDatabase} message="Não há dados disponíveis" />
+          ) : (
+            <Pagination
+              totalItems={totalItems}
+              itemsPerPageOptions={pageSizeOptions}
+              selectedSize={queryParams.size}
+              initialPage={queryParams.page + 1}
+              onPageSizeChange={changePageSize}
+              onPageChange={(page) => {
+                changePage(page);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
+          )}
         </>
       )}
       <Outlet />
     </div>
-  );
+  )
 }
 
-export default UserPage;
+export default UserPage

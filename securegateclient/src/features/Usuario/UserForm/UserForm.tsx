@@ -2,7 +2,7 @@
 // import "./UserForm.css";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFolder, faFolderOpen } from "@fortawesome/free-solid-svg-icons";
-// import { UserDTO } from "../../models/user/user";
+// import { UserDTO } from "../models/user";
 
 // interface UserSystem {
 //   roles?: string[];
@@ -148,3 +148,81 @@
 // }
 
 // export default UserForm;
+
+import { useEffect, useState } from "react";
+import "./UserForm.css";
+import { UserRequest } from "../models/user";
+
+type Props = {
+  user: UserRequest;
+  onCancel: () => void;
+  onSave: (user: UserRequest) => void;
+};
+
+function UserForm({ user, onCancel, onSave }: Props) {
+  const [formData, setFormData] = useState<UserRequest>(user);
+
+  useEffect(() => {
+    setFormData(user);
+  }, [user]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "enabled" ? value === "true" : value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(formData);
+  };
+
+  return (
+    <form className="user-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label>Nome</label>
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Email</label>
+        <input
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Status</label>
+        <select
+          name="enabled"
+          value={formData.enabled ? "true" : "false"}
+          onChange={handleChange}
+        >
+          <option value="true">Ativo</option>
+          <option value="false">Inativo</option>
+        </select>
+      </div>
+
+      <div className="form-actions">
+        <button type="submit">Salvar</button>
+        <button type="button" onClick={onCancel}>
+          Cancelar
+        </button>
+      </div>
+    </form>
+  );
+}
+
+export default UserForm;

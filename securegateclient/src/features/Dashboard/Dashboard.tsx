@@ -1,7 +1,7 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Button from "../../components/Button/Button";
-import DateInput from "../../components/DateInput/DateInput";
+import Button from "../../components/ui/Button/Button";
+import DateInput from "../../components/form/DateInput/DateInput";
 import BarChart from "./components/BarChartData/BarChartData";
 import PieChartData from "./components/PieChartData/PieChartData";
 import Summary from "./components/Summary/Summary";
@@ -78,15 +78,15 @@ function Dashboard() {
         </div>
 
         <div className="chart-container-left">
-          <LoginAttemptsChart /> {/* Gráfico de tentativas de login */}
+          <LoginAttemptsChart />
         </div>
 
         <div className="chart-container-right">
-          <BlockedUsersChart /> {/* Gráfico de usuários bloqueados */}
+          <BlockedUsersChart /> 
         </div>
 
         <div className="chart-container-left">
-          <AuthMethodsChart /> {/* Gráfico de métodos de autenticação */}
+          <AuthMethodsChart />
         </div>
 
         <div className="chart-container-right">

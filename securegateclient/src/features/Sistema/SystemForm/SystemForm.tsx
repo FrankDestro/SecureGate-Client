@@ -1,15 +1,14 @@
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import Button from "../../components/Button/Button";
-import { SystemRequest } from "../../models/system/systems";
-import * as systemService from "../../services/system-service";
+import Button from "../../../components/ui/Button/Button";
+import { useSystemForm } from "../hooks/useSystemForm";
+import { SystemRequest } from "../models/systems";
 import "./SystemForm.css";
 
 type Props = {
-  system?: SystemRequest;
+  system: SystemRequest;
   onSave: (updatedSystem: SystemRequest) => void;
-  onCancel: (info: boolean) => void;
+  onCancel: () => void;
 };
 
 const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
@@ -21,14 +20,12 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
     clientSecretHash: "",
     active: false,
   });
-  const isCreating = !system?.clientId;
+
+  const { save, isLoading } = useSystemForm();
+  const isCreating = !system.clientId;
 
   useEffect(() => {
-    if (system) {
-      setFormData({
-        ...system,
-      });
-    }
+    setFormData(system);
   }, [system]);
 
   const handleChange = (
@@ -38,48 +35,18 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const requestBody: SystemRequest = {
-      id: system?.id,
-      ...formData,
-    };
-
-    if (isCreating) {
-      systemService
-        .addAuthClient(requestBody)
-        .then(() => {
-          toast.success("Sistema cadastrado com sucesso!");
-          onSave(formData);
-        })
-        .catch(() => {
-          toast.error("Erro ao cadastrar Sistema.");
-        });
-    } else {
-      systemService
-        .UpdateAuthClient(requestBody)
-        .then(() => {
-          toast.success("Sistema atualizado com sucesso!");
-          onSave(formData);
-        })
-        .catch(() => {
-          toast.error("Erro ao atualizar Sistema.");
-        });
-    };
-  }
-
-  const handleCancel = () => {
-    onCancel(false);
+    const success = await save(formData, isCreating);
+    if (success) onSave(formData);
   };
 
   return (
-    <form id="systemForm" className="systemForm-container" onSubmit={handleSubmit}>
+    <form className="systemForm-container" onSubmit={handleSubmit}>
       <div className="systemForm-section">
         <label>Nome:</label>
         <input
           className="systemForm-input"
-          type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
@@ -87,15 +54,15 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
       </div>
 
       <div className="systemForm-section">
-        <label>Cógido:</label>
+        <label>Código:</label>
         <input
           className="systemForm-input"
-          type="text"
           name="code"
           value={formData.code}
           onChange={handleChange}
         />
       </div>
+
       <div className="systemForm-section">
         <label>Descrição:</label>
         <textarea
@@ -111,7 +78,6 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
         <input
           className="systemForm-input"
           name="clientId"
-          type="text"
           value={formData.clientId}
           onChange={handleChange}
         />
@@ -119,22 +85,19 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
 
       <div className="systemForm-section">
         <label>Client Secret:</label>
-        <div className="systemForm-secret-field">
-          <input
-            className="systemForm-input"
-            type="text"
-            name="clientSecretHash"
-            value={formData.clientSecretHash}
-            onChange={handleChange}
-          />
-        </div>
+        <input
+          className="systemForm-input"
+          name="clientSecretHash"
+          value={formData.clientSecretHash}
+          onChange={handleChange}
+        />
       </div>
 
       {!isCreating && (
         <div className="systemForm-section">
           <label>Status:</label>
           <select
-            name="active"
+            className="systemForm-input"
             value={formData.active ? "true" : "false"}
             onChange={(e) =>
               setFormData((prev) => ({
@@ -142,7 +105,6 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
                 active: e.target.value === "true",
               }))
             }
-            className="systemForm-input"
           >
             <option value="true">Ativo</option>
             <option value="false">Não Ativo</option>
@@ -154,12 +116,12 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
         <Button
           text={isCreating ? "Salvar" : "Salvar Alterações"}
           icon={faCheck}
-          form="systemForm"
           background="#009688"
           hoverColor="#00796b"
           borderRadius="5px"
-          fullWidth={true}
+          fullWidth
           type="submit"
+          disabled={isLoading}
         />
 
         <Button
@@ -168,8 +130,8 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
           background="#009688"
           hoverColor="#00796b"
           borderRadius="5px"
-          fullWidth={true}
-          onClick={handleCancel}
+          fullWidth
+          onClick={onCancel}
         />
       </div>
     </form>
@@ -177,3 +139,4 @@ const SystemForm: React.FC<Props> = ({ system, onSave, onCancel }) => {
 };
 
 export default SystemForm;
+

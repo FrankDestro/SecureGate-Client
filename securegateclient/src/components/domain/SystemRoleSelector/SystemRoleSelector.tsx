@@ -1,6 +1,6 @@
 import { useState } from "react";
-import CustomSelect from "../FormComponents/Select/CustomSelect";
-import RolesSelector from "../FormComponents/RolesSelect/RolesSelector";
+import CustomSelect from "../form/Select/CustomSelect";
+import RolesSelector from "../form/RolesSelect/RolesSelector";
 
 const systemOptions = [
   { value: 'finance', label: 'Sistema Financeiro' },

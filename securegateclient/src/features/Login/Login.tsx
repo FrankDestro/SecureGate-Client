@@ -7,8 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button/Button";
-import SearchInput from "../../components/SearchInput/SearchInput";
+import Button from "../../components/ui/Button/Button";
+import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import "./Login.css";
 
 function Login() {

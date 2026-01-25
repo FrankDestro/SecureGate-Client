@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Dashboard from "../../features/Dashboard/Dashboard";
-import "./HomePage.css";
 
 function HomePage() {
   return (

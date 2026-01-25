@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
-import { requestBackend } from "../utils/api/api-service";
-import { SystemRequest } from "../models/system/systems";
+import { requestBackend } from "../../../utils/api/api-service";
+import { SystemRequest } from "../models/systems";
 
 export function getAllSystems(
     page: number,

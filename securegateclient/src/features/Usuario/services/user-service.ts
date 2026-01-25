@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
-import { requestBackend } from "../utils/api/api-service";
-import { UserDTORequest } from "../models/user/user";
+import { requestBackend } from "../../../utils/api/api-service";
+import { UserDTORequest } from "../models/user";
 
 export function getAllUsers(
   page: number,

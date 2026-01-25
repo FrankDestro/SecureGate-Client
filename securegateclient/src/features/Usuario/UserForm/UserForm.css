@@ -1,0 +1,88 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.teste {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(212, 211, 211);
+}
+
+.container-content-render-tree-systems {
+  padding-top: 10px;
+}
+
+input,
+select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.save-button {
+  background-color: #1976d2;
+  color: white;
+}
+
+.tree-node {
+  margin-left: 20px;
+}
+
+.tree-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.tree-label {
+  font-weight: bold;
+}
+
+.tree-children {
+  margin-left: 20px;
+  padding-left: 10px;
+  border-left: 1px dashed #ccc;
+}
+
+.tree-branch {
+  margin-top: 8px;
+}
+
+.tree-subbranch {
+  margin-left: 20px;
+  font-family: monospace;
+  color: #555;
+}

@@ -1,7 +1,7 @@
 import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, useLocation } from "react-router-dom";
-import IconSystem from "../../../assets/logo2.png";
+import IconSystem from "../../assets/logo2.png";
 import "./Header.css";
 
 const colors = ["#4a90e2", "#e94e77", "#50e3c2", "#f5a623", "#bd10e0"];

@@ -1,6 +1,6 @@
 import { faCogs, faLayerGroup, faPeopleGroup, faPowerOff, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Card from "../../../../components/CardSummary/CardSummary";
+import Card from "../../../../components/ui/CardSummary/CardSummary";
 import "./Summary.css";
 
 function Summary() {
