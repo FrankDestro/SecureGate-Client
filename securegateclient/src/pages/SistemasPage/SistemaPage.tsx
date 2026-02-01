@@ -2,13 +2,21 @@ import { Outlet } from "react-router-dom";
 import NoData from "../../components/ui/NoData/NoData";
 import Pagination from "../../components/ui/Pagination/Pagination";
 import useSystem from "../../features/Sistema/hooks/useSystem";
-import System from "../../features/Sistema/System";
 import LoadingOverlay from "../../layout/LoadingOverlay/LoadingOverlay";
 import { faDatabase } from "@fortawesome/free-solid-svg-icons";
+import { System } from "../../features/Sistema/System";
 
 function SistemaPage() {
 
-  const { systems, isLoading, totalItems, queryParams, search, changePage, changePageSize, reload } = useSystem();
+  const { systems,
+    isLoading,
+    totalItems,
+    queryParams,
+    search,
+    changePage,
+    changePageSize,
+    reload } = useSystem();
+
   const pageSizeOptions = [2, 10, 20];
 
   return (

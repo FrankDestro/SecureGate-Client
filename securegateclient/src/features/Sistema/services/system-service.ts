@@ -9,7 +9,7 @@ export function getAllSystems(
   ) {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: "http://192.168.18.84:8083/api/system/getAllSystem",
+      url: "http://192.168.18.175:8083/api/system/getAllSystem",
       params: {
         page,
         size,
@@ -22,7 +22,7 @@ export function getAllSystems(
 export function addAuthClient(obj: SystemRequest) {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: "http://192.168.18.84:8083/api/system/cadastrar",
+    url: "http://192.168.18.175:8083/api/system/cadastrar",
     withCredentials: true,
     data: obj,
   };
@@ -32,7 +32,7 @@ export function addAuthClient(obj: SystemRequest) {
 export function UpdateAuthClient(obj: SystemRequest) {
   const config: AxiosRequestConfig = {
     method: "PUT",
-    url: `http://192.168.18.84:8083/api/system/atualizar/${obj.id}`,
+    url: `http://192.168.18.175:8083/api/system/atualizar/${obj.id}`,
     withCredentials: true,
     data: obj
   }

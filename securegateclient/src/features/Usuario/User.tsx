@@ -12,7 +12,7 @@ import { dataFormat } from "../../utils/helpers/functions";
 import UserForm from "./UserForm/UserForm";
 import { UserDTO, UserRequest } from "./models/user";
 import { CheckCircle, ShieldCheck, ShieldOff, Unlock, XCircle, Lock } from "lucide-react";
-import { StatusBadge } from "../../components/StatusBadge/StatusBadge"
+import { StatusBadge } from "../../components/ui/StatusBadge/StatusBadge"
 import "./User.css";
 
 type Props = {

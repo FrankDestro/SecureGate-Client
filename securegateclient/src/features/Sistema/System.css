@@ -26,7 +26,8 @@
 }
 
 .system-container-opcoes svg:hover {
-  color: #1976d2; /* Azul ao passar o mouse */
+  color: #1976d2;
+  /* Azul ao passar o mouse */
 }
 
 .dot-status {
@@ -50,4 +51,16 @@
   display: flex;
   justify-content: end;
   gap: 20px;
+}
+
+.container-system-opcoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-button-add-system {
+  display: flex;
+  width: 200px;
 }

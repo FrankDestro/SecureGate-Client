@@ -10,6 +10,7 @@ export type systemDTO = {
   updatedAt: string;
   createdBy: string;
   updatedBy: string;
+  environment_type : string;
 };
 
 

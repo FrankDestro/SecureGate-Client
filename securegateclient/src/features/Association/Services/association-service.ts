@@ -5,7 +5,7 @@ import { AssociationDTO } from "../models/association";
 export function getTodosSistemas() {
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: "http://192.168.18.84:8090/system/getAll",
+    url: "http://192.168.18.175:8090/system/getAll",
   };
   return requestBackend(config);
 }
@@ -13,7 +13,7 @@ export function getTodosSistemas() {
 export function getSistemaPerfis(id: number) {
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `http://192.168.18.84:8090/system/${id}/roles`
+    url: `http://192.168.18.175:8090/system/${id}/roles`
   };
   return requestBackend(config);
 }
@@ -21,7 +21,7 @@ export function getSistemaPerfis(id: number) {
 export function getUsuarioByParameters(text: string) {
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: "http://192.168.18.84:8090/users/usuario",
+    url: "http://192.168.18.175:8090/users/usuario",
     params: {
       text
     },
@@ -32,7 +32,7 @@ export function getUsuarioByParameters(text: string) {
 export function adicionarAssociation(obj: AssociationDTO) {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: "http://192.168.18.84:8090/association",
+    url: "http://192.168.18.175:8090/association",
     data: obj,
   };
   return requestBackend(config);

@@ -3,16 +3,19 @@ import {
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ShieldCheck, ShieldOff } from "lucide-react";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Button from "../../components/ui/Button/Button";
-import SearchInput from "../../components/ui/SearchInput/SearchInput";
-import { systemDTO } from "../Sistema/models/systems";
+import { StatusBadge } from "../../components/ui/StatusBadge/StatusBadge";
+import * as functions from "../../utils/helpers/functions";
+import { createEmptySystem } from "../Sistema/factories/system.factory";
+import { getEnvironmentIcon } from "./components/EnvironmentBadge/environmentBadge.icons";
+import FilterBarSystem from "./components/FilterBarSystem/FilterBarSystem";
 import "./System.css";
 import SystemForm from "./SystemForm/SystemForm";
-import { createEmptySystem } from "../Sistema/factories/system.factory";
-import { StatusBadge } from "../../components/StatusBadge/StatusBadge";
-import { ShieldCheck, ShieldOff } from "lucide-react";
+import { systemDTO } from "./models/systems";
+
 
 type Props = {
   onSearch: (...args: string[]) => void;
@@ -20,11 +23,10 @@ type Props = {
   onReload: () => void;
 };
 
-function System({ onSearch, systems, onReload }: Props) {
+export function System({ onSearch, systems, onReload }: Props) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentSystem, setCurrentSystem] = useState<any | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleEdit = (system: any) => {
     setCurrentSystem(system);
@@ -52,34 +54,34 @@ function System({ onSearch, systems, onReload }: Props) {
     setShowEditModal(false);
   };
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    onSearch(searchTerm);
-  }
-
   return (
     <div className="system-container-main">
       <div className="title-modules-system">
         <h1>Sistemas</h1>
-        <Button
-          text="Adicionar Sistema"
-          icon={faPlus}
-          background="#009688"
-          hoverColor="#00796b"
-          borderRadius="5px"
-          onClick={handleAdd}
-        />
       </div>
 
-      <form onSubmit={handleSubmit}>
-          <SearchInput
-            label="Buscar sistema"
-            width="100%"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-      </form>
 
+      <div className="container-system-opcoes">
+        {/* 🔎 FILTRO */}
+        <FilterBarSystem onSearch={onSearch} />
+
+        <div className="container-button-add-system">
+          <Button
+            text="Adicionar Sistema"
+            icon={faPlus}
+            background="#009688"
+            hoverColor="#00796b"
+            borderRadius="5px"
+            height="45px"
+            onClick={handleAdd}
+          />
+        </div>
+
+      </div>
+
+
+
+      {/* 📋 TABELA */}
       <div className="system-container-table">
         <div className="table-container">
           <table className="table">
@@ -92,6 +94,7 @@ function System({ onSearch, systems, onReload }: Props) {
                 <th>Registrado por</th>
                 <th>Data Última Atualização</th>
                 <th>Atualizado por</th>
+                <th>Ambiente</th>
                 <th>Ativo</th>
                 <th>Ações</th>
               </tr>
@@ -107,13 +110,23 @@ function System({ onSearch, systems, onReload }: Props) {
                   <td>{system.updatedAt}</td>
                   <td>{system.updatedBy}</td>
                   <td>
+                    <span
+                      style={functions.setBadgeStyleByEnvironmentType(
+                        system.environment_type
+                      )}
+                    >
+                      {getEnvironmentIcon(system.environment_type)}
+                      {system.environment_type}
+                    </span>
+                  </td>
+                  <td>
                     <StatusBadge
                       icon={system.active ? <ShieldCheck /> : <ShieldOff />}
                       label={system.active ? "Ativo" : "Não ativo"}
                       variant={system.active ? "success" : "danger"}
                     />
                   </td>
-                 <td>
+                  <td>
                     <div className="table-actions">
                       <div
                         className="table-action table-action--edit"
@@ -127,12 +140,10 @@ function System({ onSearch, systems, onReload }: Props) {
               ))}
             </tbody>
           </table>
-
         </div>
       </div>
 
-      {/* MODAIS */}
-
+      {/* 🧩 MODAIS */}
       <Modal
         title="Adicionar um Sistema"
         isOpen={showAddModal}
@@ -163,5 +174,3 @@ function System({ onSearch, systems, onReload }: Props) {
     </div>
   );
 }
-
-export default System;
