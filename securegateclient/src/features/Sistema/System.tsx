@@ -1,5 +1,6 @@
 import {
   faEdit,
+  faEye,
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +16,7 @@ import FilterBarSystem from "./components/FilterBarSystem/FilterBarSystem";
 import "./System.css";
 import SystemForm from "./SystemForm/SystemForm";
 import { systemDTO } from "./models/systems";
-
+import SystemViewDetails from "./components/SystemView/SystemViewDetails";
 
 type Props = {
   onSearch: (...args: string[]) => void;
@@ -26,11 +27,17 @@ type Props = {
 export function System({ onSearch, systems, onReload }: Props) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
   const [currentSystem, setCurrentSystem] = useState<any | null>(null);
 
   const handleEdit = (system: any) => {
     setCurrentSystem(system);
     setShowEditModal(true);
+  };
+
+  const handleView = (system: any) => {
+    setCurrentSystem(system);
+    setShowViewModal(true);
   };
 
   const handleAdd = () => {
@@ -52,6 +59,7 @@ export function System({ onSearch, systems, onReload }: Props) {
   const handleCancel = () => {
     setShowAddModal(false);
     setShowEditModal(false);
+     setShowViewModal(false);
   };
 
   return (
@@ -78,8 +86,6 @@ export function System({ onSearch, systems, onReload }: Props) {
         </div>
 
       </div>
-
-
 
       {/* 📋 TABELA */}
       <div className="system-container-table">
@@ -112,11 +118,11 @@ export function System({ onSearch, systems, onReload }: Props) {
                   <td>
                     <span
                       style={functions.setBadgeStyleByEnvironmentType(
-                        system.environment_type
+                        system.environmentType
                       )}
                     >
-                      {getEnvironmentIcon(system.environment_type)}
-                      {system.environment_type}
+                      {getEnvironmentIcon(system.environmentType)}
+                      {system.environmentType}
                     </span>
                   </td>
                   <td>
@@ -128,6 +134,12 @@ export function System({ onSearch, systems, onReload }: Props) {
                   </td>
                   <td>
                     <div className="table-actions">
+                      <div
+                        className="table-action table-action--edit"
+                        onClick={() => handleView(system)}
+                      >
+                        <FontAwesomeIcon icon={faEye} className="icon-edit" />
+                      </div>
                       <div
                         className="table-action table-action--edit"
                         onClick={() => handleEdit(system)}
@@ -151,6 +163,7 @@ export function System({ onSearch, systems, onReload }: Props) {
       >
         {currentSystem && (
           <SystemForm
+            title={"Adicionar Sistema"}
             system={currentSystem}
             onSave={handleNewSaveSystem}
             onCancel={handleCancel}
@@ -158,6 +171,22 @@ export function System({ onSearch, systems, onReload }: Props) {
         )}
       </Modal>
 
+      {/* VIEW */}
+      <Modal
+        title={`Infomrações do Sistema: ${currentSystem?.name}`}
+        isOpen={showViewModal}
+        onClose={handleCancel}
+      >
+        {currentSystem && (
+          <SystemViewDetails
+            title={"Detalhes do Sistema"}
+            system={currentSystem}
+            onCancel={handleCancel}
+          />
+        )}
+      </Modal>
+
+      {/* EDIT */}
       <Modal
         title={`Editar Sistema: ${currentSystem?.name}`}
         isOpen={showEditModal}
@@ -165,6 +194,7 @@ export function System({ onSearch, systems, onReload }: Props) {
       >
         {currentSystem && (
           <SystemForm
+            title={"Editar Sistema"}
             system={currentSystem}
             onSave={handleSaveSystem}
             onCancel={handleCancel}

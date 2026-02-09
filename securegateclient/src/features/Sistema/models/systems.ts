@@ -10,7 +10,7 @@ export type systemDTO = {
   updatedAt: string;
   createdBy: string;
   updatedBy: string;
-  environment_type : string;
+  environmentType : string;
 };
 
 
@@ -20,8 +20,9 @@ export type SystemRequest = {
   name: string
   description: string
   clientId: string
+  active : boolean
   clientSecretHash: string
-  active: boolean
+  environmentType: string;
 };
 
 export type systemAssociateByUserDTO = {
@@ -29,4 +30,5 @@ export type systemAssociateByUserDTO = {
   roles: string[];
   permissions: string[];
 };
+
 

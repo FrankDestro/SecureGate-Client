@@ -12,7 +12,6 @@ type Props = {
 };
 
 function FilterBarSystem({ onSearch }: Props) {
-
     const [searchTerm, setSearchTerm] = useState("");
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {

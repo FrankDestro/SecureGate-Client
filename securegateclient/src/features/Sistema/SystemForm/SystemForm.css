@@ -1,80 +1,76 @@
+/* CONTAINER */
 .systemForm-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 20px;
   max-height: 70vh;
   overflow-y: auto;
-  padding: 0px 15px 0px 0px;
+  padding-right: 10px 10px 10px 10px;
 }
 
+/* SECTIONS = CARD */
 .systemForm-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 6px;
 }
 
+/* LABEL */
+.systemForm-section label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+/* INPUT / SELECT / TEXTAREA */
 .systemForm-input,
 .systemForm-textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
   width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  color: #111827;
+  transition: border 0.15s ease, box-shadow 0.15s ease;
+}
+
+.systemForm-input:focus,
+.systemForm-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
 .systemForm-textarea {
   resize: vertical;
-  min-height: 60px;
+  min-height: 70px;
 }
 
-.systemForm-secret-field {
-  display: flex;
-  gap: 0.5rem;
+/* SELECT */
+.systemForm-input select {
+  appearance: none;
 }
 
-.systemForm-regen-button {
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.systemForm-regen-button:hover {
-  background-color: #e0e0e0;
-}
-
-.systemForm-checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.systemForm-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding-top: 1rem;
-}
-
-.systemForm-cancel-button {
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem 1.2rem;
+/* STATUS / ENV SELECT VISUAL */
+.systemForm-section select {
   cursor: pointer;
 }
 
-.systemForm-save-button {
-  background-color: #1976d2;
-  border: none;
-  color: white;
-  border-radius: 6px;
-  padding: 0.5rem 1.2rem;
-  cursor: pointer;
+/* SCROLLBAR CLEAN */
+.systemForm-container::-webkit-scrollbar {
+  width: 6px;
 }
 
-.systemForm-save-button:hover {
-  background-color: #115293;
+.systemForm-container::-webkit-scrollbar-track {
+  background: transparent;
 }
+
+.systemForm-container::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 10px;
+}   
