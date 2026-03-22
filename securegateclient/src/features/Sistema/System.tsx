@@ -4,7 +4,7 @@ import {
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ShieldCheck, ShieldOff } from "lucide-react";
+import { Edit2, Plus, ShieldCheck, ShieldOff, View } from "lucide-react";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Button from "../../components/ui/Button/Button";
@@ -13,10 +13,10 @@ import * as functions from "../../utils/helpers/functions";
 import { createEmptySystem } from "../Sistema/factories/system.factory";
 import { getEnvironmentIcon } from "./components/EnvironmentBadge/environmentBadge.icons";
 import FilterBarSystem from "./components/FilterBarSystem/FilterBarSystem";
+import SystemViewDetails from "../Sistema/SystemView/SystemViewDetails";
+import { systemDTO } from "./models/systems";
 import "./System.css";
 import SystemForm from "./SystemForm/SystemForm";
-import { systemDTO } from "./models/systems";
-import SystemViewDetails from "./components/SystemView/SystemViewDetails";
 
 type Props = {
   onSearch: (...args: string[]) => void;
@@ -59,7 +59,7 @@ export function System({ onSearch, systems, onReload }: Props) {
   const handleCancel = () => {
     setShowAddModal(false);
     setShowEditModal(false);
-     setShowViewModal(false);
+    setShowViewModal(false);
   };
 
   return (
@@ -160,10 +160,10 @@ export function System({ onSearch, systems, onReload }: Props) {
         title="Adicionar um Sistema"
         isOpen={showAddModal}
         onClose={handleCancel}
+        icon={<Plus size={18} />}
       >
         {currentSystem && (
           <SystemForm
-            title={"Adicionar Sistema"}
             system={currentSystem}
             onSave={handleNewSaveSystem}
             onCancel={handleCancel}
@@ -173,13 +173,13 @@ export function System({ onSearch, systems, onReload }: Props) {
 
       {/* VIEW */}
       <Modal
-        title={`Infomrações do Sistema: ${currentSystem?.name}`}
+        title={`Detalhes do Sistema: ${currentSystem?.name}`}
         isOpen={showViewModal}
         onClose={handleCancel}
+        icon={<View size={18} />}
       >
         {currentSystem && (
           <SystemViewDetails
-            title={"Detalhes do Sistema"}
             system={currentSystem}
             onCancel={handleCancel}
           />
@@ -191,10 +191,10 @@ export function System({ onSearch, systems, onReload }: Props) {
         title={`Editar Sistema: ${currentSystem?.name}`}
         isOpen={showEditModal}
         onClose={handleCancel}
+        icon={<Edit2 size={18} />}
       >
         {currentSystem && (
           <SystemForm
-            title={"Editar Sistema"}
             system={currentSystem}
             onSave={handleSaveSystem}
             onCancel={handleCancel}

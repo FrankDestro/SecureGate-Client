@@ -1,0 +1,221 @@
+/* PAGE */
+.page {
+    padding: 24px;
+    background: #f5f7fb;
+    width: 1600px;
+}
+
+/* PAGE */
+
+/* HEADER */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0;
+}
+
+.page-header p {
+    margin: 4px 0 0;
+    color: #6b7280;
+}
+
+.system-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+/* HEADER */
+
+
+.profile-grid {
+    width: 100%;
+    height: auto;
+}
+
+
+/* RESUMO */
+.summary {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+.summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.summary li {
+    margin-bottom: 10px;
+}
+
+.summary h2 {
+    margin-bottom: 8px;
+}
+
+.summary-title {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.259);
+    margin: 0px 0px 10px 0px;
+    width: 100%;
+}
+
+
+/* CARD */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    align-items: start;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 16px;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* PERFIS */
+.profile-grid {
+    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.profile-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.profile-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.icon.admin {
+    color: #2563eb;
+}
+
+.icon.operator {
+    color: #0ea5e9;
+}
+
+.profile-desc {
+    display: block;
+    margin: 8px 0;
+    color: #6b7280;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+/* BOTÕES */
+.btn {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn.disabled {
+    background: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+/* ADICIONAR PERFIL */
+.add-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 16px;
+}
+
+.add-grid input,
+.add-grid select {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+.add-perfil-title {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.259);
+    margin: 0px 0px 10px 0px;
+    width: 100%;
+}
+
+.add-perfil-title h2 {
+    margin-bottom: 8px;
+}
+
+.label-title {
+    margin-top: 90px;
+}
+
+
+.container-new-perfis {
+    position: relative;
+}
+
+.profile-card.new {
+    animation: highlightNew 2s ease-out;
+}
+
+.badge-new {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #16a34a;
+    color: white;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+@keyframes highlightNew {
+  0% { background-color: #dcfce7; }
+  100% { background-color: white; }
+}

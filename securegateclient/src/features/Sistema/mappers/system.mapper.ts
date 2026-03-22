@@ -9,5 +9,6 @@ export function toSystemRequest(formData: any): SystemRequest {
     clientId: formData.clientId,
     clientSecretHash: formData.clientSecretHash,
     active: formData.active,
+    environmentType: formData.environmentType
   };
 }

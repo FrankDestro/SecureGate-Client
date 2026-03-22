@@ -1,39 +1,43 @@
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import { Monitor, X } from 'lucide-react';
 import "./Modal.css";
 
 type ModalProps = {
-  title: string;
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
+    title: string;
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+    icon?: React.ReactNode
 };
 
 const Modal: React.FC<ModalProps> = ({
-  title,
-  isOpen,
-  onClose,
-  children,
-  footer,
+    title,
+    isOpen,
+    onClose,
+    children,
+    icon
 }) => {
-  if (!isOpen) return null;
+    if (!isOpen) return null;
 
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content-app">
-        <header className="modal-header">
-          <h2>{title}</h2>
-          <div className="close-button" onClick={onClose}>
-            <FontAwesomeIcon icon={faClose} fontSize={24} color="gray" />
-          </div>
-        </header>
-        <div className="modal-body">{children}</div>
-        {footer && <footer className="modal-footer">{footer}</footer>}
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className="system-modal-overlay">
+            <div className="system-modal">
+                {/* HEADER */}
+                <header className="system-modal-header">
+                    <div className="header-left">
+                        {icon ?? <Monitor size={18} />}
+                        <h3>{title}</h3>
+                    </div>
+                    <button className="close-button" onClick={onClose}>
+                        <X size={18} />
+                    </button>
+                </header>
+                {/* CONTEÚDO */}
+                <section>
+                    {children}
+                </section>
+            </div>
+        </div>
+    )
+}
 
-export default Modal;
+export default Modal

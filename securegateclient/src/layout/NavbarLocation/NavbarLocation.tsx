@@ -23,6 +23,8 @@ const NavbarLocation = () => {
         return { title: "Detalhes do Usuário", icon: faUsers };
       case "/association":
         return { title: "Associação", icon: faLayerGroup };
+      case "/associationSystemPerfis":
+        return { title: "Associação Sistemas | Perfis de acesso", icon: faLayerGroup };
       case "/association/details":
         return { title: "Detalhes da Associação", icon: faLayerGroup };
       case "/configuracao":

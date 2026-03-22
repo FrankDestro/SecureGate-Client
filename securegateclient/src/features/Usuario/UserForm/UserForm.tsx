@@ -152,6 +152,8 @@
 import { useEffect, useState } from "react";
 import "./UserForm.css";
 import { UserRequest } from "../models/user";
+import Button from "../../../components/ui/Button/Button";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   user: UserRequest;
@@ -182,46 +184,59 @@ function UserForm({ user, onCancel, onSave }: Props) {
   };
 
   return (
-    <form className="user-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Nome</label>
-        <input
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-      </div>
+    <>
+      <form onSubmit={handleSubmit} >
+        <div className="system-modal-body">
+          <div className="form-group">
+            <label>Nome</label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required />
+          </div>
 
-      <div className="form-group">
-        <label>Email</label>
-        <input
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required />
+          </div>
 
-      <div className="form-group">
-        <label>Status</label>
-        <select
-          name="enabled"
-          value={formData.enabled ? "true" : "false"}
-          onChange={handleChange}
-        >
-          <option value="true">Ativo</option>
-          <option value="false">Inativo</option>
-        </select>
-      </div>
-
-      <div className="form-actions">
-        <button type="submit">Salvar</button>
-        <button type="button" onClick={onCancel}>
-          Cancelar
-        </button>
-      </div>
-    </form>
+          <div className="form-group">
+            <label>Status</label>
+            <select
+              name="enabled"
+              value={formData.enabled ? "true" : "false"}
+              onChange={handleChange}
+            >
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
+          </div>
+        </div>
+        <div className="system-modal-footer">
+          <Button
+            text={"Salvar"}
+            icon={faCheck}
+            background="#009688"
+            hoverColor="#00796b"
+            borderRadius="5px"
+            fullWidth
+            type="submit" />
+          <Button
+            text="Cancelar"
+            icon={faXmark}
+            background="#009688"
+            hoverColor="#00796b"
+            borderRadius="5px"
+            fullWidth
+            onClick={onCancel} />
+        </div>
+      </form>
+    </>
   );
 }
 

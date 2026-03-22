@@ -3,17 +3,17 @@ import {
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CheckCircle, Edit2, Lock, ShieldCheck, ShieldOff, Unlock, User2Icon, XCircle } from "lucide-react";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Button from "../../components/ui/Button/Button";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
-import { createEmptyUser } from "./factories/user.factory";
+import { StatusBadge } from "../../components/ui/StatusBadge/StatusBadge";
 import { dataFormat } from "../../utils/helpers/functions";
-import UserForm from "./UserForm/UserForm";
-import { UserDTO, UserRequest } from "./models/user";
-import { CheckCircle, ShieldCheck, ShieldOff, Unlock, XCircle, Lock } from "lucide-react";
-import { StatusBadge } from "../../components/ui/StatusBadge/StatusBadge"
 import "./User.css";
+import UserForm from "./UserForm/UserForm";
+import { createEmptyUser } from "./factories/user.factory";
+import { UserDTO, UserRequest } from "./models/user";
 
 type Props = {
   onSearch: (...args: string[]) => void;
@@ -148,6 +148,7 @@ function User({ onSearch, users }: Props) {
         title="Adicionar Usuário"
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
+        icon={<User2Icon size={18} />}
       >
         {currentUser && (
           <UserForm
@@ -162,6 +163,7 @@ function User({ onSearch, users }: Props) {
         title="Editar Usuário"
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
+        icon={<Edit2 size={18} />}
       >
         {currentUser && (
           <UserForm

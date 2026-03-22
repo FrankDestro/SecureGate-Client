@@ -10,6 +10,7 @@ import UserPage from "./pages/UserPage/UserPage";
 import { ToastContainer } from "react-toastify";
 import { ConfigProvider } from "antd";
 import ptBR from 'antd/es/locale/pt_BR';
+import AssociacaoSystemPerfilPage from "./pages/AssociacaoSystemPerfilPage/AssociacaoSystemPerfilPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="user" element={<UserPage />} />
             <Route path="association" element={<AssociacaoPage />} />
+             <Route path="associationSystemPerfis" element={<AssociacaoSystemPerfilPage />} />
             <Route path="sistemas" element={<SistemaPage />} />
             <Route path="configuracao" element={<ConfiguracaoPage />} />
           </Route>
